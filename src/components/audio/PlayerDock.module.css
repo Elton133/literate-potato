@@ -1,0 +1,141 @@
+.dock {
+  position: fixed;
+  left: var(--gutter);
+  bottom: 0;
+  z-index: 60;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: stretch;
+  width: min(560px, calc(100vw - 2 * var(--gutter)));
+  background: var(--black);
+  color: var(--white);
+  border: 1px solid var(--paper-20);
+  border-bottom: 0;
+  border-top: 3px solid var(--coffee-lift);
+  transform: translateY(110%);
+  transition: transform 800ms var(--ease);
+}
+.dock[data-open] {
+  transform: none;
+}
+
+.controls {
+  display: flex;
+  border-right: 1px solid var(--paper-20);
+}
+
+.btn {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  min-height: 64px;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  transition: background-color 250ms, color 250ms;
+}
+.btn:hover {
+  background: var(--paper-20);
+}
+
+.main {
+  width: 56px;
+  background: var(--white);
+  color: var(--black);
+}
+.main:hover {
+  background: var(--coffee);
+  color: var(--white);
+}
+
+.body {
+  min-width: 0;
+  padding: 10px 16px 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 6px;
+}
+
+.line {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  min-width: 0;
+  white-space: nowrap;
+}
+.title {
+  font-family: var(--f-serif);
+  font-style: italic;
+  font-size: 19px;
+  line-height: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.by {
+  font-size: 10px;
+  color: var(--paper-60);
+}
+
+.note {
+  font-size: 10px;
+  color: var(--paper-60);
+}
+.note a {
+  color: var(--white);
+  border-bottom: 1px solid var(--coffee-lift);
+}
+
+.seekRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.time {
+  font-size: 10px;
+  color: var(--paper-60);
+  min-width: 3.2em;
+}
+.time:last-child {
+  text-align: right;
+}
+
+/* Square-thumb range — no soft UI */
+.seek {
+  flex: 1;
+  appearance: none;
+  height: 14px;
+  background: linear-gradient(var(--white), var(--white)) 0 50% / var(--p, 0%) 2px no-repeat,
+    linear-gradient(var(--paper-20), var(--paper-20)) 0 50% / 100% 2px no-repeat;
+  cursor: pointer;
+}
+.seek::-webkit-slider-thumb {
+  appearance: none;
+  width: 8px;
+  height: 14px;
+  background: var(--white);
+  border: 0;
+}
+.seek::-moz-range-thumb {
+  width: 8px;
+  height: 14px;
+  background: var(--white);
+  border: 0;
+}
+
+.close {
+  border-left: 1px solid var(--paper-20);
+}
+
+@media (max-width: 759px) {
+  .dock {
+    left: 0;
+    width: 100vw;
+    border-left: 0;
+    border-right: 0;
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  .controls .btn:not(.main) {
+    display: none;
+  }
+}

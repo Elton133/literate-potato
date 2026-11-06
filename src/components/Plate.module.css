@@ -1,0 +1,43 @@
+.plate {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #151413;
+}
+
+/* Pending plate: a lit studio backdrop with film grain — reads as a
+   reserved photographic space, not as a broken image. */
+.pending {
+  background-image:
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 .09 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>"),
+    radial-gradient(120% 90% at 38% 30%, #3a3836 0%, #1d1c1b 45%, #0b0b0b 100%);
+}
+
+.light {
+  background-color: #d9d5cc;
+  background-image:
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 .08 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>"),
+    radial-gradient(110% 90% at 60% 35%, #e6e2d9 0%, #c9c4b9 60%, #aaa497 100%);
+}
+
+.coffee {
+  background-image:
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 .07 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>"),
+    radial-gradient(120% 90% at 40% 30%, #5d3a28 0%, #3a2318 55%, #1f130c 100%);
+}
+
+.caption {
+  position: absolute;
+  left: 14px;
+  bottom: 12px;
+  right: 14px;
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 10px;
+  color: rgb(245 243 238 / 0.55);
+}
+.light .caption {
+  color: rgb(8 8 8 / 0.5);
+}

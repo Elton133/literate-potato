@@ -1,0 +1,212 @@
+.header {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 50;
+  height: var(--header-h);
+  padding: 0 var(--gutter);
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  color: var(--white);
+  border-bottom: 1px solid transparent;
+  transition:
+    background-color 500ms var(--ease),
+    border-color 500ms var(--ease);
+}
+/* Over the hero the wordmark and nav invert against the photograph */
+.header:not([data-scrolled]):not([data-open]) {
+  mix-blend-mode: difference;
+}
+.header[data-scrolled] {
+  background: var(--black);
+  border-bottom-color: var(--paper-20);
+}
+
+.mark {
+  justify-self: start;
+  display: flex;
+  flex-direction: column;
+  font-weight: 800;
+  text-transform: uppercase;
+  font-size: 17px;
+  line-height: 0.9;
+  letter-spacing: -0.02em;
+}
+.mark span:last-child {
+  padding-left: 0.9em;
+}
+
+.nav ol {
+  display: flex;
+  gap: clamp(20px, 2.6vw, 44px);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.nav a {
+  position: relative;
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 6px 0;
+}
+.nav a :global(.meta) {
+  font-size: 9px;
+  opacity: 0.55;
+}
+.nav a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 2px;
+  background: var(--coffee-lift);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 500ms var(--ease);
+}
+.nav a:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.right {
+  position: fixed;
+  z-index: 55;
+  top: 0;
+  right: var(--gutter);
+  height: var(--header-h);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.menuBtn {
+  display: none;
+  height: 36px;
+  padding: 0 12px;
+  border: 0;
+  background: var(--black);
+  color: var(--white);
+}
+
+/* ── Mobile menu ──────────────────────────────────────────
+   The sheet wipes down from under the header; each link rises
+   through its own mask, rules draw across. Closing is quicker. */
+.sheet {
+  position: fixed;
+  z-index: 49;
+  inset: var(--header-h) 0 0 0;
+  background: var(--black);
+  color: var(--white);
+  padding: 8vh var(--gutter) 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  clip-path: inset(0 0 100% 0);
+  visibility: hidden;
+  transition:
+    clip-path 500ms var(--ease-in-out) 120ms,
+    visibility 0s linear 620ms;
+}
+.sheet[data-open] {
+  clip-path: inset(0 0 0 0);
+  visibility: visible;
+  transition:
+    clip-path 700ms var(--ease-in-out),
+    visibility 0s;
+}
+
+.sheet ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.sheet li {
+  position: relative;
+  overflow: hidden;
+}
+/* divider draws left → right */
+.sheet li::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 1px;
+  background: var(--paper-20);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 300ms var(--ease);
+}
+.sheet a {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 10px 0 6px;
+  transform: translateY(105%);
+  transition: transform 300ms var(--ease-in-out);
+}
+.sheet li:nth-child(even) a {
+  padding-left: 18vw;
+}
+.sheet[data-open] li::before {
+  transform: scaleX(1);
+  transition: transform 900ms var(--ease) calc(300ms + var(--i) * 80ms);
+}
+.sheet[data-open] a {
+  transform: none;
+  transition: transform 900ms var(--ease) calc(320ms + var(--i) * 80ms);
+}
+
+.sheet > p {
+  margin: 0;
+  opacity: 0;
+  transition: opacity 200ms;
+}
+.sheet[data-open] > p {
+  opacity: 1;
+  transition: opacity 600ms var(--ease) 700ms;
+}
+
+.sheet :global(.display) {
+  font-size: 15vw;
+}
+.sheet :global(.meta) {
+  color: var(--paper-60);
+}
+
+/* Menu label swaps with a short vertical slide */
+.menuLabel {
+  display: block;
+  animation: labelIn 400ms var(--ease);
+}
+@keyframes labelIn {
+  from {
+    transform: translateY(60%);
+    opacity: 0;
+  }
+}
+
+@media (max-width: 899px) {
+  .header {
+    grid-template-columns: 1fr auto;
+  }
+  .nav {
+    display: none;
+  }
+  .right .menuBtn {
+    display: block;
+  }
+  .header[data-open] {
+    background: var(--black);
+  }
+}
+@media (min-width: 900px) {
+  .sheet {
+    display: none !important;
+  }
+}

@@ -1,0 +1,202 @@
+.section {
+  position: relative;
+  z-index: 1;
+  background: var(--white);
+  color: var(--black);
+  padding: calc(14vh + 64px) var(--gutter) clamp(80px, 12vw, 180px);
+}
+
+.kicker {
+  display: flex;
+  gap: 18px;
+  margin: 0 0 clamp(32px, 5vw, 72px);
+  max-width: 34vw;
+}
+.kicker span {
+  color: var(--coffee);
+  font-weight: 700;
+}
+
+/* ── Spread ───────────────────────────────────────────────── */
+
+.spread {
+  display: grid;
+  grid-template-columns: calc(50vw - var(--gutter)) 1fr;
+  align-items: start;
+}
+
+/* The cover stack sits flush to the left screen edge. Shuffled cards
+   slide out past that edge and come back — nothing of either face is
+   permanently cropped. */
+.sleeve {
+  position: relative;
+  width: 50vw;
+  margin-left: calc(-1 * var(--gutter));
+}
+.single {
+  width: 100%;
+  aspect-ratio: 1;
+}
+
+/* A clear gutter between the cover stack and the words */
+.copy {
+  position: relative;
+  padding-top: clamp(0px, 4vw, 60px);
+  padding-left: clamp(32px, 5vw, 96px);
+}
+
+/* Sits beside the sleeve — the cover carries its own title, so the
+   headline never lies on top of it. */
+.title {
+  position: relative;
+  z-index: 2;
+  margin: 0;
+  font-size: clamp(48px, 7vw, 140px);
+  color: var(--black);
+}
+
+.numeral {
+  display: block;
+  margin: -0.06em 0 0 auto;
+  width: max-content;
+  font-size: clamp(200px, 30vw, 520px);
+  line-height: 0.72;
+  color: var(--coffee);
+  margin-right: 0; /* fully on screen, aligned to the right gutter */
+}
+
+.notes {
+  position: relative;
+  z-index: 2;
+  background: var(--white);
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: clamp(24px, 3vw, 48px);
+  margin-top: clamp(28px, 4vw, 56px);
+}
+
+.desc p {
+  margin: 0 0 14px;
+  font-size: 15px;
+  line-height: 1.55;
+  max-width: 42ch;
+}
+.desc .lede {
+  font-family: var(--f-serif);
+  font-size: clamp(21px, 1.8vw, 27px);
+  line-height: 1.2;
+}
+
+.facts {
+  margin: 0;
+  border-top: 2px solid var(--black);
+}
+.facts div {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 9px 0;
+  border-bottom: 1px solid var(--ink-20);
+}
+.facts dt {
+  color: var(--ink-60);
+}
+.facts dd {
+  margin: 0;
+  font-weight: 600;
+  font-size: 14px;
+  text-align: right;
+}
+
+/* ── Lower: tracklist + streaming ─────────────────────────── */
+
+.lower {
+  display: grid;
+  grid-template-columns: 1fr 2.2fr 1fr;
+  gap: clamp(24px, 4vw, 64px);
+  margin-top: clamp(64px, 9vw, 140px);
+}
+.tracks {
+  grid-column: 2;
+}
+.stream {
+  grid-column: 3;
+  align-self: end;
+}
+.stream h3,
+.listHead h3 {
+  margin: 0 0 12px;
+  font-weight: 700;
+}
+.listHead {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 16px;
+}
+.listHead p {
+  margin: 0;
+  color: var(--ink-60);
+}
+
+.others {
+  margin-top: clamp(48px, 6vw, 88px);
+}
+
+/* ── Tablet ───────────────────────────────────────────────── */
+@media (max-width: 1099px) {
+  .lower {
+    grid-template-columns: 1fr 1fr;
+  }
+  .tracks {
+    grid-column: 1 / -1;
+  }
+  .stream {
+    grid-column: 2;
+  }
+  .notes {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* ── Mobile ───────────────────────────────────────────────── */
+@media (max-width: 759px) {
+  .section {
+    padding-top: 56px;
+  }
+  .kicker {
+    max-width: none;
+  }
+  .spread {
+    grid-template-columns: minmax(0, 1fr); /* full-bleed cover can't widen the column */
+  }
+  .sleeve {
+    width: 100vw;
+  }
+  .copy {
+    padding-left: 0;
+  }
+  .title {
+    margin: 32px 0 0 0;
+    font-size: 17vw;
+  }
+  .numeral {
+    font-size: 38vw;
+    margin-top: -0.3em;
+  }
+  .lower {
+    grid-template-columns: minmax(0, 1fr);
+    margin-top: 56px;
+  }
+  .stream {
+    grid-column: 1;
+  }
+  .listHead {
+    flex-direction: column;
+    gap: 2px;
+    margin-bottom: 12px;
+  }
+  .listHead h3 {
+    margin: 0;
+  }
+}

@@ -1,0 +1,74 @@
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.list li {
+  border-bottom: 1px solid color-mix(in srgb, currentColor 22%, transparent);
+}
+
+.row {
+  position: relative;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 12px 0 10px;
+}
+
+.label {
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-size: 15px;
+  transition: transform 500ms var(--ease);
+}
+
+.lg .label {
+  font-weight: 800;
+  letter-spacing: 0;
+  font-size: clamp(34px, 4.8vw, 80px);
+  line-height: 0.9;
+}
+.lg .row {
+  padding: 14px 0 8px;
+}
+
+.arrow {
+  font-size: 1.1em;
+  transition: transform 500ms var(--ease);
+}
+.lg .arrow {
+  font-size: clamp(22px, 2.4vw, 36px);
+}
+
+/* coffee rule draws across on hover */
+a.row::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 3px;
+  background: var(--coffee);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 600ms var(--ease);
+}
+a.row:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+a.row:hover .label {
+  transform: translateX(8px);
+}
+a.row:hover .arrow {
+  transform: translate(4px, -4px);
+}
+
+.pending {
+  opacity: 0.42;
+}
+.state {
+  font-size: 10px;
+}

@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title id="pageTitle">Artist | Official Site</title>
+  <meta name="description" content="Official website: music, live shows, story and bookings.">
+  <meta property="og:title" content="Artist">
+  <meta property="og:description" content="Music, live shows and bookings.">
+  <meta property="og:image" content="assets/images/hero.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <!-- NAV -->
+  <header class="nav" id="navbar">
+    <a href="#top" class="brand" id="brand">ARTIST</a>
+    <nav class="nav-links" aria-label="Main" id="navLinks">
+      <a href="#music" class="nav-link">Music</a>
+      <a href="#shows" class="nav-link">Shows</a>
+      <a href="#story" class="nav-link">Story</a>
+      <a href="#book" class="nav-cta">Book Me</a>
+    </nav>
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </header>
+
+  <main id="top">
+
+    <!-- HERO -->
+    <section class="hero" id="hero">
+      <div class="hero-bg"></div>
+      <div class="hero-overlay"></div>
+      <div class="hero-particles" id="particles"></div>
+      <div class="hero-content">
+        <div class="hero-badge reveal-up">✦ Official Site</div>
+        <h1 class="hero-name reveal-up" id="heroName">Artist Name</h1>
+        <p class="hero-tagline reveal-up" id="tagline">Your Genre · Your Tagline</p>
+        <div class="hero-actions reveal-up">
+          <a href="#music" class="btn btn-primary">Listen Now</a>
+          <a href="#book" class="btn btn-ghost">Book Me</a>
+        </div>
+      </div>
+      <div class="hero-img" id="heroImg" role="img" aria-label="Artist photo"></div>
+      <div class="hero-scroll-hint">
+        <span>Scroll</span>
+        <div class="scroll-arrow"></div>
+      </div>
+    </section>
+
+    <!-- STATS STRIP -->
+    <div class="stats-strip">
+      <div class="stats-inner">
+        <div class="stat reveal-up">
+          <span class="stat-num" data-target="500">0</span><span class="stat-unit">K+</span>
+          <p>Monthly Listeners</p>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat reveal-up">
+          <span class="stat-num" data-target="120">0</span><span class="stat-unit">+</span>
+          <p>Shows Played</p>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat reveal-up">
+          <span class="stat-num" data-target="8">0</span><span class="stat-unit"></span>
+          <p>Albums Released</p>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat reveal-up">
+          <span class="stat-num" data-target="40">0</span><span class="stat-unit">+</span>
+          <p>Countries Toured</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- MUSIC -->
+    <section id="music" class="section">
+      <div class="wrap">
+        <div class="section-header reveal-up">
+          <span class="section-label">Discography</span>
+          <h2>Music</h2>
+          <p class="section-sub">Stream, download, or hit play right here.</p>
+        </div>
+
+        <div class="music-grid">
+          <div class="player-card reveal-up">
+            <div class="player-header">
+              <div class="player-vinyl" id="vinyl">
+                <div class="vinyl-label"></div>
+              </div>
+              <div class="player-info">
+                <div class="player-status">Now Playing</div>
+                <div class="player-title" id="nowTitle">Select a track</div>
+                <div class="player-controls">
+                  <button class="ctrl-btn" id="prevBtn" aria-label="Previous">&#9664;&#9664;</button>
+                  <button class="play-btn" id="playBtn" aria-label="Play or pause">
+                    <svg id="playIcon" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg>
+                  </button>
+                  <button class="ctrl-btn" id="nextBtn" aria-label="Next">&#9654;&#9654;</button>
+                </div>
+                <div class="progress-bar-wrap">
+                  <div class="progress-bar" id="progressBar"><div class="progress-fill" id="progressFill"></div></div>
+                  <div class="progress-times"><span id="currentTime">0:00</span><span id="totalTime">0:00</span></div>
+                </div>
+              </div>
+            </div>
+            <audio id="audio" preload="none"></audio>
+            <ul class="tracklist" id="tracklist"></ul>
+          </div>
+
+          <div class="music-side reveal-up">
+            <div class="streaming-card">
+              <p class="streaming-label">Stream on</p>
+              <div class="streaming-links" id="streaming"></div>
+            </div>
+            <div class="video-wrap" id="video"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SHOWS -->
+    <section id="shows" class="section section-alt">
+      <div class="wrap">
+        <div class="section-header reveal-up">
+          <span class="section-label">Tour Dates</span>
+          <h2>Live Shows</h2>
+          <p class="section-sub">Experience it live. Nothing compares.</p>
+        </div>
+        <ul class="shows-list" id="showList"></ul>
+      </div>
+    </section>
+
+    <!-- STORY -->
+    <section id="story" class="section">
+      <div class="wrap">
+        <div class="section-header reveal-up">
+          <span class="section-label">About</span>
+          <h2>The Story</h2>
+        </div>
+        <div class="story-grid">
+          <div class="portrait-wrap reveal-up">
+            <div class="portrait" id="portrait" role="img" aria-label="Portrait of the artist"></div>
+            <div class="portrait-accent"></div>
+          </div>
+          <div class="story-content reveal-up">
+            <div id="storyText"></div>
+            <div class="story-actions">
+              <a id="pressLink" class="btn btn-ghost" download>Download Press Kit</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- GALLERY -->
+    <section id="gallery" class="section section-alt" hidden>
+      <div class="wrap">
+        <div class="section-header reveal-up">
+          <span class="section-label">Photos</span>
+          <h2>Gallery</h2>
+        </div>
+        <div class="gallery-grid reveal-up" id="galleryGrid"></div>
+      </div>
+    </section>
+
+    <!-- BOOKING -->
+    <section id="book" class="section">
+      <div class="wrap">
+        <div class="section-header reveal-up">
+          <span class="section-label">Get in Touch</span>
+          <h2>Book Me</h2>
+          <p class="section-sub">Tell me about your event. I reply within 48 hours.</p>
+        </div>
+        <div class="form-container reveal-up">
+          <form id="bookForm" class="book-form" novalidate>
+            <div class="form-row">
+              <label class="form-field">
+                <span>Your Name</span>
+                <input name="name" required autocomplete="name" placeholder="John Doe">
+              </label>
+              <label class="form-field">
+                <span>Email Address</span>
+                <input name="email" type="email" required autocomplete="email" placeholder="john@example.com">
+              </label>
+            </div>
+            <div class="form-row">
+              <label class="form-field">
+                <span>Event Type</span>
+                <select name="type">
+                  <option>Concert / Festival</option>
+                  <option>Private Event</option>
+                  <option>Corporate</option>
+                  <option>Collaboration</option>
+                  <option>Other</option>
+                </select>
+              </label>
+              <label class="form-field">
+                <span>Event Date</span>
+                <input name="date" type="date">
+              </label>
+            </div>
+            <div class="form-row">
+              <label class="form-field">
+                <span>City &amp; Venue</span>
+                <input name="location" placeholder="City, Country — Venue Name">
+              </label>
+              <label class="form-field">
+                <span>Budget (optional)</span>
+                <input name="budget" placeholder="e.g. $5,000">
+              </label>
+            </div>
+            <label class="form-field form-full">
+              <span>Details</span>
+              <textarea name="message" rows="5" required placeholder="Tell me more about your event, expected audience size, etc."></textarea>
+            </label>
+            <button class="btn btn-primary form-submit" type="submit">Send Booking Request ✦</button>
+            <p id="formStatus" class="form-status" role="status"></p>
+          </form>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand" id="footerBrand">ARTIST</div>
+      <div class="footer-socials" id="socials"></div>
+      <form id="newsletter" class="newsletter-form">
+        <p class="newsletter-label">Stay in the loop — new releases &amp; tour dates</p>
+        <div class="newsletter-row">
+          <input id="nl" type="email" placeholder="Your email address" required>
+          <button class="btn btn-primary" type="submit">Join</button>
+        </div>
+      </form>
+      <p class="footer-copy" id="copy"></p>
+    </div>
+    <div class="footer-glow"></div>
+  </footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

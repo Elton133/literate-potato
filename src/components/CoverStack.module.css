@@ -1,0 +1,115 @@
+.wrap {
+  position: relative;
+  width: 100%;
+}
+
+/* The stack is a square; each card is 92% of it, the back card peeks
+   out 8% to the bottom-right. */
+.stack {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 1;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+.stack:focus-visible {
+  outline-offset: 6px;
+}
+
+.card {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 92%;
+  height: 92%;
+  overflow: hidden;
+  background: var(--black);
+  transition: transform 700ms var(--ease), filter 700ms var(--ease);
+}
+
+.card[data-pos="front"] {
+  z-index: 2;
+  transform: none;
+}
+.card[data-pos="back"] {
+  z-index: 1;
+  transform: translate(8.7%, 8.7%);
+  filter: brightness(0.82);
+}
+
+/* The shuffle: front card slides out past the screen edge, drops
+   behind; the back card rises into place. Changing data-pos swaps the
+   animation name, which restarts it on every shuffle. */
+.card[data-moved][data-pos="back"] {
+  animation: toBack 900ms var(--ease-in-out) both;
+}
+.card[data-moved][data-pos="front"] {
+  animation: toFront 900ms var(--ease-in-out) both;
+}
+
+@keyframes toBack {
+  0% {
+    transform: none;
+    z-index: 2;
+  }
+  45% {
+    transform: translate(-72%, -2%);
+    z-index: 2;
+  }
+  46% {
+    z-index: 0;
+  }
+  100% {
+    transform: translate(8.7%, 8.7%);
+    z-index: 1;
+  }
+}
+
+@keyframes toFront {
+  0% {
+    transform: translate(8.7%, 8.7%);
+    z-index: 1;
+  }
+  45% {
+    transform: translate(8.7%, 8.7%);
+    z-index: 1;
+  }
+  46% {
+    z-index: 2;
+  }
+  100% {
+    transform: none;
+    z-index: 2;
+  }
+}
+
+.legend {
+  display: flex;
+  gap: 24px;
+  justify-content: space-between;
+  margin: 18px 0 0;
+  padding-left: var(--gutter);
+  padding-right: 8%;
+  color: var(--ink-60);
+}
+.hintTap {
+  display: none;
+}
+@media (hover: none), (pointer: coarse) {
+  .hintHover {
+    display: none;
+  }
+  .hintTap {
+    display: inline;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card[data-moved][data-pos="back"],
+  .card[data-moved][data-pos="front"] {
+    animation: none;
+  }
+}

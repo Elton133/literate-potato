@@ -1,0 +1,159 @@
+.section {
+  position: relative;
+  background: var(--black);
+  color: var(--white);
+  padding: clamp(80px, 10vw, 160px) var(--gutter) clamp(96px, 12vw, 200px);
+}
+
+.label {
+  position: absolute;
+  left: var(--gutter);
+  top: clamp(80px, 10vw, 160px);
+  z-index: 2;
+}
+.label p {
+  margin: 0 0 16px;
+}
+.label span {
+  color: var(--coffee-lift);
+  font-weight: 700;
+  margin-right: 18px;
+}
+.title {
+  margin: 0;
+  font-size: clamp(72px, 13vw, 240px);
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  line-height: 0.78;
+}
+
+.plates {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  column-gap: clamp(12px, 2vw, 32px);
+  row-gap: 0;
+}
+
+.plate {
+  position: relative;
+  margin: 0;
+}
+.frame {
+  width: 100%;
+  height: 100%;
+}
+.plate figcaption {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 10px;
+  color: var(--paper-60);
+}
+
+/* a — wide, enters from and bleeds past the right edge */
+.a {
+  grid-column: 4 / -1;
+  margin-right: calc(-1 * var(--gutter) - 10vw);
+}
+.a .frame {
+  aspect-ratio: 16 / 10;
+}
+
+/* b — small, low, tucked against the left */
+.b {
+  grid-column: 2 / span 3;
+  margin-top: -6vw;
+}
+.b .frame {
+  aspect-ratio: 3 / 4;
+}
+
+/* c — tall, overlaps the bottom of a */
+.c {
+  grid-column: 7 / span 4;
+  margin-top: -14vw;
+  z-index: 1;
+}
+.c .frame {
+  aspect-ratio: 4 / 5;
+  outline: clamp(8px, 1vw, 16px) solid var(--black);
+}
+
+/* d — panoramic, bleeds past the left edge */
+.d {
+  grid-column: 1 / span 9;
+  margin-left: calc(-1 * var(--gutter) - 8vw);
+  margin-top: clamp(48px, 7vw, 120px);
+}
+.d .frame {
+  aspect-ratio: 21 / 9;
+}
+.d figcaption {
+  padding-left: calc(var(--gutter) + 8vw);
+}
+
+/* ── Phones: a horizontal swipe strip ─────────────────────
+   Cards snap into place; the next photograph always peeks in from
+   past the right edge, so the off-canvas crop survives. */
+.swipe {
+  display: none;
+}
+
+@media (max-width: 759px) {
+  .label {
+    position: relative;
+    top: auto;
+    left: auto;
+    margin-bottom: 20px;
+  }
+  .title {
+    writing-mode: horizontal-tb;
+    transform: none;
+    font-size: 26vw;
+  }
+  .swipe {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 0 14px;
+    color: var(--paper-60);
+  }
+  .plates {
+    display: flex;
+    gap: 12px;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scroll-padding-left: var(--gutter);
+    margin: 0 calc(-1 * var(--gutter));
+    padding: 0 var(--gutter) 4px;
+    scrollbar-width: none;
+  }
+  .plates::-webkit-scrollbar {
+    display: none;
+  }
+  .plate,
+  .a,
+  .b,
+  .c,
+  .d {
+    flex: 0 0 78vw;
+    margin: 0;
+    scroll-snap-align: start;
+  }
+  /* alternate heights so the strip keeps an editorial rhythm */
+  .plate .frame {
+    aspect-ratio: 4 / 5;
+    outline: 0;
+  }
+  .b,
+  .d {
+    flex-basis: 64vw;
+    align-self: flex-end;
+  }
+  .b .frame,
+  .d .frame {
+    aspect-ratio: 3 / 4;
+  }
+  .d figcaption {
+    padding-left: 0;
+  }
+}

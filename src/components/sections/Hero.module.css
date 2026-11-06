@@ -1,0 +1,183 @@
+.hero {
+  position: relative;
+  z-index: 2; /* portrait overlaps into the next section */
+  min-height: max(100svh, 680px);
+  background: var(--black);
+  color: var(--white);
+}
+
+/* ── Desktop / tablet composition ─────────────────────────── */
+
+.portrait {
+  position: absolute;
+  top: 0;
+  right: -14vw; /* deliberately past the canvas */
+  width: 64vw;
+  bottom: -14vh; /* and past the section */
+  z-index: 1;
+}
+
+.handle {
+  position: absolute;
+  left: 18px;
+  top: calc(var(--header-h) + 24px);
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  color: var(--ink-60);
+}
+
+/* Craig's signature, written across the photograph */
+.signature {
+  position: absolute;
+  left: 5vw;
+  top: calc(var(--header-h) + 13vh);
+  font-size: clamp(64px, 9vw, 170px);
+  color: var(--coffee);
+  transform: rotate(-8deg);
+  pointer-events: none;
+}
+
+.slab {
+  position: absolute;
+  z-index: 0;
+  left: 31vw;
+  top: calc(var(--header-h) + 6vh);
+  width: 13vw;
+  height: 44vh; /* the name passes over it — off-white on coffee */
+  background: var(--coffee);
+}
+
+
+.name {
+  position: absolute;
+  z-index: 2;
+  left: calc(var(--gutter) - 0.04em);
+  bottom: 5vh;
+  margin: 0;
+  /* Sized so both lines end before the portrait (which starts at 50vw):
+     the name stays solid off-white and fully legible on black. */
+  font-size: min(16.4vw, 31vh);
+  line-height: 0.84;
+  color: var(--white);
+  pointer-events: none;
+}
+.nameLines {
+  display: block;
+}
+/* Second line steps right, toward the photograph */
+.nameLines > span:nth-child(2) {
+  padding-left: 0.3em;
+}
+
+.caption {
+  position: absolute;
+  z-index: 3;
+  right: var(--gutter);
+  bottom: 5vh;
+  width: clamp(240px, 22vw, 330px);
+  background: var(--black);
+  padding: 20px 20px 0;
+}
+
+.statement {
+  margin: 0 0 22px;
+  font-size: 15px;
+  line-height: 1.45;
+}
+
+.current {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: baseline;
+  gap: 12px;
+  padding: 14px 0 16px;
+  border-top: 1px solid var(--paper-20);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-size: 14px;
+}
+.current em {
+  font-family: var(--f-serif);
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: 16px;
+  color: var(--paper-60);
+}
+.current :global(.meta) {
+  color: var(--paper-60);
+}
+.current > span:last-child {
+  transition: transform 400ms var(--ease);
+}
+.current:hover > span:last-child {
+  transform: translateX(6px);
+}
+
+/* ── Mobile recomposition ─────────────────────────────────── */
+
+@media (max-width: 759px) {
+  .hero {
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 40px;
+  }
+  .portrait {
+    position: relative;
+    inset: auto;
+    order: 1;
+    width: 112vw;
+    height: 72svh;
+    margin-left: 14vw; /* subject pushed right, cropped by the edge */
+  }
+  .handle {
+    top: calc(var(--header-h) + 16px);
+  }
+  .signature {
+    left: 3vw;
+    top: auto;
+    bottom: 34%;
+    font-size: 17vw;
+  }
+  .slab {
+    left: 0;
+    top: calc(var(--header-h) + 10svh);
+    bottom: auto;
+    width: 20vw;
+    height: 30svh;
+  }
+  .name {
+    position: relative;
+    order: 2;
+    left: auto;
+    bottom: auto;
+    margin: 18px 0 0 calc(var(--gutter) - 0.04em);
+    font-size: 25vw;
+  }
+  .caption {
+    position: relative;
+    order: 4;
+    inset: auto;
+    width: auto;
+    margin: 28px var(--gutter) 0 22vw;
+    padding: 0;
+  }
+}
+
+@media (min-width: 760px) and (max-width: 1099px) {
+  .portrait {
+    width: 70vw;
+    right: -20vw;
+  }
+  .slab {
+    left: 26vw;
+  }
+  .name {
+    bottom: calc(5vh + 150px);
+  }
+  .caption {
+    width: 300px;
+  }
+}

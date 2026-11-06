@@ -1,26 +1,234 @@
 @import "tailwindcss";
 
+/* ─────────────────────────────────────────────────────────────
+   CRAIG OSAE — design tokens
+   Black and off-white are the foundation. Coffee is the accent.
+   No radius. Almost no shadow. Sharp geometry only.
+   ───────────────────────────────────────────────────────────── */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --black: #080808;
+  /* --white: #f5f3ee; */
+  --white: #ffffff;
+  --coffee: #2d0c05; /* Craig's coffee */
+  --coffee-deep: #1c0703;
+  /* the same hue, lifted — only for small accents on black / coffee */
+  --coffee-lift: #a36552;
+
+  --ink-60: rgb(8 8 8 / 0.6);
+  --ink-20: rgb(8 8 8 / 0.2);
+  --paper-60: rgb(245 243 238 / 0.62);
+  --paper-20: rgb(245 243 238 / 0.18);
+
+  /* DM Sans carries everything structural; Bacalisties is Craig's hand. */
+  --f-display: var(--font-dm-sans), "Helvetica Neue", Arial, sans-serif;
+  --f-serif: var(--f-display); /* editorial italic voice */
+  --f-mono: var(--f-display); /* metadata voice */
+  --f-script: var(--font-script), "Brush Script MT", cursive;
+
+  --gutter: clamp(16px, 3.2vw, 48px);
+  --header-h: 64px;
+  --ease: cubic-bezier(0.19, 1, 0.22, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+
+  color-scheme: dark;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-black: var(--black);
+  --color-white: var(--white);
+  --color-coffee: var(--coffee);
+  --font-display: var(--f-display);
+  --font-serif: var(--f-serif);
+  --font-mono: var(--f-mono);
+  --font-script: var(--f-script);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* Intentional bleed: images may extend past the viewport,
+   but the page itself never scrolls sideways. `clip` (not `hidden`)
+   keeps position: sticky working. */
+html,
+body {
+  overflow-x: clip;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: var(--header-h);
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--black);
+  color: var(--white);
+  font-family: var(--f-display);
+  font-size: 16px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+* {
+  border-radius: 0 !important;
+}
+
+::selection {
+  background: var(--coffee);
+  color: var(--white);
+}
+
+:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 3px;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+}
+
+/* ── Shared typographic utilities ─────────────────────────── */
+
+.meta {
+  font-family: var(--f-mono);
+  font-weight: 500;
+  font-size: 11px;
+  line-height: 1.5;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.display {
+  font-family: var(--f-display);
+  font-weight: 800;
+  text-transform: uppercase;
+  line-height: 0.84;
+  letter-spacing: -0.055em;
+}
+
+.serif {
+  font-family: var(--f-serif);
+  font-weight: 300;
+  font-style: italic;
+  letter-spacing: -0.02em;
+}
+
+/* Craig's hand — signature script, used sparingly */
+.script {
+  font-family: var(--f-script);
+  font-weight: 400;
+  font-style: normal;
+  text-transform: none;
+  letter-spacing: 0;
+  line-height: 1;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: fixed;
+  left: var(--gutter);
+  top: -100px;
+  z-index: 100;
+  background: var(--white);
+  color: var(--black);
+  padding: 12px 16px;
+}
+.skip-link:focus {
+  top: 12px;
+}
+
+/* ── Motion grammar ───────────────────────────────────────────
+   Elements carry data-reveal="…". The hidden start state only
+   applies when JS has flagged <html class="motion">, so content
+   is never lost without JS. RevealObserver sets data-in.        */
+
+html.motion [data-reveal] {
+  transition:
+    opacity 900ms var(--ease),
+    transform 1300ms var(--ease),
+    clip-path 1300ms var(--ease-in-out);
+  transition-delay: var(--d, 0ms);
+}
+
+html.motion [data-reveal="fade"]:not([data-in]) {
+  opacity: 0;
+  transform: translateY(28px);
+}
+
+html.motion [data-reveal="wipe"]:not([data-in]) {
+  clip-path: inset(0 100% 0 0);
+}
+
+html.motion [data-reveal="rise"]:not([data-in]) {
+  clip-path: inset(100% 0 0 0);
+}
+
+/* Photographs travelling in from beyond the canvas edge */
+html.motion [data-reveal="from-right"]:not([data-in]) {
+  transform: translateX(28vw);
+  clip-path: inset(0 0 0 100%);
+}
+html.motion [data-reveal="from-left"]:not([data-in]) {
+  transform: translateX(-28vw);
+  clip-path: inset(0 100% 0 0);
+}
+html.motion [data-reveal="from-right"],
+html.motion [data-reveal="from-left"] {
+  transition:
+    transform 1600ms var(--ease),
+    clip-path 1400ms var(--ease-in-out);
+  transition-delay: var(--d, 0ms);
+}
+
+/* Text through a clipping mask — each .line masks its inner span */
+.line {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.04em;
+  margin-bottom: -0.04em;
+}
+.line > span {
+  display: inline-block;
+}
+html.motion [data-reveal="lines"] .line > span {
+  transition: transform 1200ms var(--ease);
+  transition-delay: calc(var(--d, 0ms) + var(--i, 0) * 90ms);
+}
+html.motion [data-reveal="lines"]:not([data-in]) .line > span {
+  transform: translateY(108%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  html.motion [data-reveal],
+  html.motion [data-reveal] .line > span {
+    transition: none !important;
+    transform: none !important;
+    clip-path: none !important;
+    opacity: 1 !important;
+  }
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
 }
