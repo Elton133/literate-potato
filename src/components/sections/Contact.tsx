@@ -5,7 +5,7 @@ import styles from "./Contact.module.css";
 
 export function Contact() {
   return (
-    <section id="contact" className={styles.section} aria-labelledby="contact-title">
+    <section id="contact" className={`pattern ${styles.section}`} aria-labelledby="contact-title">
       <div className={styles.left}>
         <p className={`meta ${styles.kicker}`}>
           <span>08</span> Contact — bookings, collaborations, press
@@ -29,7 +29,9 @@ export function Contact() {
           <span>
             {artist.genre} — {artist.country}
           </span>
-          <a href="#top">Back to top ↑</a>
+          <a href="#top" title="Da capo — from the top" aria-label="Back to top (da capo)">
+            Da capo ↑
+          </a>
         </div>
         {/* The wordmark is cropped by the bottom of the page */}
         <p className={`display ${styles.wordmark}`} aria-hidden>

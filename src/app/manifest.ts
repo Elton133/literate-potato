@@ -12,7 +12,8 @@ export default function manifest(): MetadataRoute.Manifest {
     background_color: "#080808",
     theme_color: "#080808",
     icons: [
-      { src: "/icon", sizes: "64x64", type: "image/png" },
+      // The Dialogue 1 cover (app/icon.png)
+      { src: "/icon.png", sizes: "256x256", type: "image/png" },
       { src: "/apple-icon", sizes: "180x180", type: "image/png" },
     ],
   };

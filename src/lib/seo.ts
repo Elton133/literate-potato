@@ -40,7 +40,11 @@ const recording = (t: Track) => ({
 /** One JSON-LD graph: the artist, the site, the EP and the singles. */
 export function structuredData() {
   const artistId = abs("/#artist");
-  const sameAs = [...socials, ...streaming].map((l) => l.url).filter(Boolean);
+  // Profiles only — a broadcast channel isn't an identity page.
+  const sameAs = [...socials, ...streaming]
+    .filter((l) => !/whatsapp/i.test(l.label))
+    .map((l) => l.url)
+    .filter(Boolean);
   const epTracks = ep.tracklist.map(getTrack).filter(Boolean) as Track[];
   const singles = tracks.filter((t) => !t.project && t.released);
 

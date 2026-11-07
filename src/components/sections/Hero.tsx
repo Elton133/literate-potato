@@ -6,9 +6,10 @@ import styles from "./Hero.module.css";
 
 export function Hero() {
   return (
-    <section id="top" className={styles.hero} aria-labelledby="hero-name">
+    <section id="top" className={`pattern ${styles.hero}`} aria-labelledby="hero-name">
       {/* The coffee slab sits behind everything — Bauhaus counterweight to the portrait */}
-      <div className={styles.slab} data-reveal="rise" style={{ "--d": "250ms" } as CSSProperties} aria-hidden />
+      {/* <div className={styles.slab} data-reveal="rise" style={{ "--d": "250ms" } as CSSProperties} aria-hidden /> */}
+
 
       {/* Portrait: enters from beyond the right edge, bleeds off-canvas and into the next section */}
       <div className={styles.portrait} data-reveal="from-right" style={{ "--d": "100ms" } as CSSProperties}>
@@ -20,9 +21,6 @@ export function Hero() {
         />
         <span className={`meta ${styles.handle}`} aria-hidden>
           {artist.handle}
-        </span>
-        <span className={`script ${styles.signature}`} aria-hidden data-reveal="wipe" style={{ "--d": "1400ms" } as CSSProperties}>
-          Craig Osae
         </span>
       </div>
 

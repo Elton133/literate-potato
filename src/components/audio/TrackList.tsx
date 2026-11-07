@@ -23,7 +23,8 @@ export function TrackList({ items, size = "md" }: { items: Track[]; size?: "md" 
           track.artist ?? artist.name,
           track.with ? `with ${track.with}` : null,
           track.featuring ? `feat. ${track.featuring}` : null,
-          track.audio ? (track.preview ? "45s preview" : track.year) : "Audio soon",
+          // songs with a site preview say so; released songs show their year
+          track.audio ? (track.preview ? "45s preview" : track.year) : (track.year ?? "Audio soon"),
         ].filter(Boolean);
 
         return (
@@ -40,7 +41,8 @@ export function TrackList({ items, size = "md" }: { items: Track[]; size?: "md" 
                   <>
                     {"  ·  "}
                     <a className={styles.full} href={full.url} target="_blank" rel="noopener noreferrer">
-                      Full song on {full.label} ↗<span className="sr-only"> (opens in a new tab)</span>
+                      {track.audio ? "Full song on" : "Listen on"} {full.label} ↗
+                      <span className="sr-only"> (opens in a new tab)</span>
                     </a>
                   </>
                 )}

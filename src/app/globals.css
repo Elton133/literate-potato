@@ -118,7 +118,8 @@ button {
   letter-spacing: -0.02em;
 }
 
-/* Craig's hand — signature script, used sparingly */
+/* Craig's hand — the script appears in exactly two places: the two
+   emphasised Vision phrases and "Write to Craig." Keep it that way. */
 .script {
   font-family: var(--f-script);
   font-weight: 400;
@@ -126,6 +127,32 @@ button {
   text-transform: none;
   letter-spacing: 0;
   line-height: 1;
+}
+
+/* ── Pattern on black ────────────────────────────────────────
+   public/pattern.png (black line art on transparent) used as a mask,
+   painted a whisper of off-white. Sits *under* the section's content
+   (z-index -1 inside an isolated section), so it never crosses photos
+   or text. Add class="pattern" to any black section. */
+.pattern {
+  isolation: isolate;
+}
+.pattern::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-color: rgba(77, 76, 76, 0.045);
+  -webkit-mask: url("/pattern.png") 0 0 / 1440px auto repeat;
+  mask: url("/pattern.png") 0 0 / 1440px auto repeat;
+}
+@media (max-width: 759px) {
+  /* tiled finer on phones so the lines stay as delicate as on desktop */
+  .pattern::before {
+    -webkit-mask-size: 760px auto;
+    mask-size: 760px auto;
+  }
 }
 
 .sr-only {

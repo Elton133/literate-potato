@@ -18,7 +18,8 @@ const dmSans = DM_Sans({
 });
 
 /**
- * Bacalisties — signature script, used only as Craig's "hand".
+ * Bacalisties — script used in exactly two places (Vision phrases,
+ * "Write to Craig."). The wordmark carries the decorative identity.
  * LICENCE: the supplied file is marked personal-use only. A commercial
  * webfont licence is required before this site goes live.
  */

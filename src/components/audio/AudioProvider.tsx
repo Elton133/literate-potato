@@ -164,6 +164,48 @@ export function AudioProvider({ children }: { children: ReactNode }) {
     navigator.mediaSession.setActionHandler("previoustrack", () => step(-1));
   }, [track, engaged, step]);
 
+  // ── Small details ──────────────────────────────────────────
+
+  // The tab plays along: "▶ He Dey · Craig Osae" while playing, and a
+  // gentle nudge if the listener wanders off to another tab.
+  useEffect(() => {
+    const base = document.title;
+    const playing = status === "playing" || status === "loading";
+    const set = () => {
+      if (!playing || !track) document.title = base;
+      else if (document.hidden) document.title = `♪ Still playing — ${track.title}`;
+      else document.title = `▶ ${track.title} · ${artist.name}`;
+    };
+    set();
+    document.addEventListener("visibilitychange", set);
+    return () => {
+      document.removeEventListener("visibilitychange", set);
+      document.title = base;
+    };
+  }, [status, track]);
+
+  // "K" plays / pauses, as it does on YouTube. Ignored while typing.
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key.toLowerCase() !== "k" || e.metaKey || e.ctrlKey || e.altKey) return;
+      const el = e.target as HTMLElement | null;
+      if (el?.closest("input, textarea, select, [contenteditable]")) return;
+      e.preventDefault();
+      toggle();
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [toggle]);
+
+  // A line for whoever opens the console.
+  useEffect(() => {
+    console.log(
+      "%cCraig Osae%c  Afrogospel, from Ghana.\nIt starts with an encounter.  — craigosae.com",
+      "font: 800 14px system-ui; letter-spacing: -0.02em",
+      "font: 12px system-ui; color: #A36552",
+    );
+  }, []);
+
   const value = useMemo<AudioState>(
     () => ({
       track,

@@ -9,6 +9,12 @@ import styles from "./Record.module.css";
 
 const EP_ID = "the-dialogue-1";
 
+/** "2026-11-04" → "4 Nov 2026" — formatted in UTC so server and browser agree. */
+const formatDate = (iso: string) =>
+  new Intl.DateTimeFormat("en-GB", { day: "numeric", month: "short", year: "numeric", timeZone: "UTC" }).format(
+    new Date(`${iso}T00:00:00Z`),
+  );
+
 /** The Dialogue 1 — a record sleeve translated into an editorial spread. */
 export function Record() {
   const confirmed = ep.tracklist.map(getTrack).filter(Boolean) as Track[];
@@ -20,7 +26,7 @@ export function Record() {
     ["Format", ep.kind],
     ["Tracks", hasTracklist ? String(confirmed.length) : "To be confirmed"],
     ["Status", ep.status],
-    ["Released", ep.release.date ?? "To be confirmed"],
+    ["Released", ep.release.date ? formatDate(ep.release.date) : "To be confirmed"],
   ];
 
   return (

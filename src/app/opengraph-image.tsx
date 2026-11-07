@@ -3,30 +3,33 @@ import { join } from "node:path";
 import { ImageResponse } from "next/og";
 import { artist, ep } from "@/content/site";
 
-export const alt = `${artist.name} — Ghanaian ${artist.genre} artist. Black-and-white portrait beside his name.`;
+export const alt = `${artist.name} — Ghanaian ${artist.genre} artist. His wordmark beside a black-and-white portrait.`;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
 /**
- * The share card: the real black-and-white portrait cropped off the
- * right edge, the name set large on black — the hero, in miniature.
+ * The share card: the official wordmark on black beside the real
+ * black-and-white portrait, cropped off the right edge.
  */
 /** Cached so the card prerenders at build time — crawlers get a static PNG. */
 async function assets() {
   "use cache";
-  const [portrait, font] = await Promise.all([
+  const [portrait, wordmark, font] = await Promise.all([
     readFile(join(process.cwd(), "src/assets/og-portrait.jpg")),
+    // The official wordmark, recoloured off-white (see src/assets)
+    readFile(join(process.cwd(), "src/assets/wordmark-white.png")),
     // DM Sans (SIL OFL) — the site's typeface, bundled for the renderer
     readFile(join(process.cwd(), "src/assets/fonts/DMSans-ExtraBold.ttf")),
   ]);
   return {
     src: `data:image/jpeg;base64,${portrait.toString("base64")}`,
+    wordmark: `data:image/png;base64,${wordmark.toString("base64")}`,
     font: font.toString("base64"),
   };
 }
 
 export default async function Image() {
-  const { src, font } = await assets();
+  const { src, wordmark, font } = await assets();
 
   return new ImageResponse(
     (
@@ -46,10 +49,8 @@ export default async function Image() {
           <div style={{ display: "flex", fontSize: 18, letterSpacing: 4, opacity: 0.65 }}>
             {`GHANA — ${artist.genre.toUpperCase()} — SINGER · PRODUCER`}
           </div>
-          <div style={{ display: "flex", flexDirection: "column", fontSize: 172, lineHeight: 0.84, fontWeight: 800, letterSpacing: -10 }}>
-            <span>CRAIG</span>
-            <span style={{ paddingLeft: 60 }}>OSAE</span>
-          </div>
+          {/* 1924 × 381 source → 640 × 127 */}
+          <img src={wordmark} alt="" width={640} height={127} style={{ width: 640, height: 127 }} />
           <div style={{ display: "flex", fontSize: 24, gap: 24 }}>
             <span>{`Now: ${ep.title} ${ep.kind}`}</span>
             <span style={{ opacity: 0.65 }}>{artist.handle}</span>

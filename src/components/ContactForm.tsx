@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
-import { artist, contact } from "@/content/site";
+import { artist, contact, socials } from "@/content/site";
 import styles from "./sections/Contact.module.css";
 
 /**
@@ -13,6 +13,7 @@ export function ContactForm() {
   const [type, setType] = useState(contact.enquiryTypes[0]);
   const [sent, setSent] = useState(false);
   const ready = Boolean(contact.email);
+  const instagram = socials.find((s) => s.label === "Instagram")?.url ?? null;
 
   function send(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -71,9 +72,19 @@ export function ContactForm() {
           <span aria-hidden>→</span>
         </button>
         <p className="meta" role="status">
-          {!ready
-            ? `Bookings inbox opening soon — message ${artist.handle} in the meantime.`
-            : sent
+          {!ready ? (
+            <>
+              Bookings inbox opening soon — message{" "}
+              {instagram ? (
+                <a href={instagram} target="_blank" rel="noopener noreferrer" className={styles.inline}>
+                  {artist.handle} on Instagram ↗
+                </a>
+              ) : (
+                artist.handle
+              )}{" "}
+              in the meantime.
+            </>
+          ) : sent
               ? "Your mail app should now be open with the message ready."
               : "Opens your mail app with everything filled in."}
         </p>

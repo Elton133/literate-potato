@@ -1,13 +1,13 @@
 "use client";
 
-import { useEffect, useRef, type CSSProperties } from "react";
+import { useEffect, useRef, type ClipboardEvent, type CSSProperties } from "react";
 import { artist, vision } from "@/content/site";
 import styles from "./Vision.module.css";
 
 /**
  * The manifesto, read aloud by the scroll. The statement is pinned on
  * screen in pale grey; each word lights up as the visitor scrolls, and
- * Craig's signature lands once the sentence is complete.
+ * the attribution lands once the sentence is complete.
  *
  * The words are Craig's, verbatim (see `vision.quote`). Only the two
  * emphasised phrases are art direction.
@@ -21,6 +21,21 @@ const PHRASES: { text: string; em?: boolean }[] = [
 
 const WORDS = PHRASES.flatMap((p) => p.text.split(" ").map((w) => ({ w, em: p.em })));
 const N = WORDS.length;
+
+/**
+ * Copying any part of the statement carries Craig's name with it — in
+ * his own casing (the screen shows it uppercase, the clipboard shouldn't).
+ */
+function creditOnCopy(e: ClipboardEvent<HTMLQuoteElement>) {
+  const sel = window.getSelection();
+  if (!sel || sel.isCollapsed) return;
+  const picked = Array.from(e.currentTarget.querySelectorAll<HTMLElement>("[data-i]"))
+    .filter((el) => sel.containsNode(el, true))
+    .map((el) => WORDS[Number(el.dataset.i)].w);
+  if (!picked.length) return;
+  e.preventDefault();
+  e.clipboardData.setData("text/plain", `“${picked.join(" ")}”\n— ${artist.name}, craigosae.com`);
+}
 
 export function Vision() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -69,29 +84,37 @@ export function Vision() {
           <h2 id="vision-title" className={`display ${styles.heading}`}>
             Vision
           </h2>
-          <span className={`script ${styles.tag}`}>a manifesto</span>
+          <span className={`meta ${styles.tag}`}>A manifesto</span>
         </div>
 
         <figure className={styles.figure}>
-          <blockquote className={styles.quote}>
+          <blockquote className={styles.quote} onCopy={creditOnCopy}>
             <span className="sr-only">{vision.quote}</span>
             <span aria-hidden>
               <span className={styles.mark}>“</span>
               {WORDS.map(({ w, em }, i) => (
                 <span
                   key={i}
+                  data-i={i}
                   className={`${styles.word} ${em ? styles.em : ""}`}
                   style={{ "--i": i } as CSSProperties}
                 >
                   {w}{" "}
                 </span>
               ))}
+              {/* the quote only closes once the whole sentence has been read */}
+              <span className={styles.closeMark}>”</span>
             </span>
           </blockquote>
           <figcaption className={styles.sign}>
-            <span className={`script ${styles.signed}`}>{artist.name}</span>
+            <span className={styles.signed}>— {artist.name}</span>
             <span className="meta">On the vision</span>
           </figcaption>
+          {/* where the sound goes next — lands with the sign-off */}
+          <p className={styles.reach}>
+            <span className="meta">Next</span>
+            {vision.reach}
+          </p>
         </figure>
       </div>
     </section>

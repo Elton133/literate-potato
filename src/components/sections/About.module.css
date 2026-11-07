@@ -33,9 +33,9 @@
   align-items: start;
 }
 
+/* Scrolls with the page — the Vision statement is the site's only pinned moment */
 .figure {
-  position: sticky;
-  top: calc(var(--header-h) + 24px);
+  position: relative;
   margin: 0 0 0 calc(-1 * var(--gutter) - 6vw); /* enters from the left edge */
   width: calc(100% + 6vw);
   aspect-ratio: 4 / 5;
@@ -43,7 +43,7 @@
 
 .passages {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(2, minmax(0, 1fr)); /* equal columns, whatever the content */
   gap: clamp(56px, 7vw, 120px) clamp(24px, 3vw, 48px);
 }
 
@@ -101,11 +101,10 @@
   text-transform: none;
 }
 .result em {
-  font-family: var(--f-script);
-  font-style: normal;
-  font-weight: 400;
-  font-size: 1.6em;
-  letter-spacing: 0;
+  font-family: var(--f-serif);
+  font-style: italic;
+  font-weight: 300;
+  letter-spacing: -0.04em;
   color: var(--coffee-lift);
 }
 
@@ -131,6 +130,38 @@
 }
 .ears li + li {
   padding-left: 1.2em;
+}
+
+.earsNote {
+  margin-top: 18px !important;
+  max-width: 30ch !important;
+}
+
+/* V · the one number on the site */
+.figure_ {
+  margin: 0 0 14px !important;
+  font-size: clamp(56px, 6vw, 112px) !important;
+  line-height: 0.82 !important;
+  color: var(--white) !important;
+  max-width: none !important;
+}
+.count p:last-child {
+  max-width: 34ch;
+}
+
+/* VI · the mission, set as a quiet pull line */
+.mission {
+  align-self: end;
+}
+.missionText {
+  font-family: var(--f-serif);
+  font-style: italic;
+  font-weight: 300;
+  font-size: clamp(24px, 2.4vw, 38px) !important;
+  line-height: 1.12 !important;
+  letter-spacing: -0.03em;
+  color: var(--white) !important;
+  max-width: 22ch !important;
 }
 
 @media (max-width: 899px) {
@@ -169,6 +200,9 @@
   }
   .result {
     padding-left: 22vw;
+  }
+  .mission {
+    padding-left: 12vw;
   }
   .hands {
     padding-top: 0;

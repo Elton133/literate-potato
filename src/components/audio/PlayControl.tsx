@@ -27,6 +27,7 @@ export function PlayControl() {
       onClick={() => toggle()}
       aria-label={`${isPlaying ? "Pause" : "Play"} ${label} by ${artist.name}`}
       aria-pressed={isPlaying}
+      title={`${isPlaying ? "Pause" : "Play"} (K)`}
     >
       <span className={styles.key}>
         <span className={styles.icon}>{isPlaying ? <PauseIcon /> : <PlayIcon />}</span>

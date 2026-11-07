@@ -64,8 +64,14 @@ export function PlayerDock() {
           </p>
         ) : unavailable ? (
           <p className={`meta ${styles.note}`}>
-            {status === "error" ? "Audio could not load. " : "Preview arriving soon. "}
-            <a href="#music">Listen elsewhere ↗</a>
+            {status === "error" ? "Audio could not load. " : "No preview on this site. "}
+            {full?.url ? (
+              <a href={full.url} target="_blank" rel="noopener noreferrer">
+                Listen on {full.label} ↗
+              </a>
+            ) : (
+              <a href="#accounts">Find it on streaming ↗</a>
+            )}
           </p>
         ) : (
           <div className={styles.seekRow}>

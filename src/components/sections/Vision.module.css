@@ -38,9 +38,9 @@
   line-height: 0.8;
 }
 .tag {
-  font-size: clamp(30px, 3vw, 56px);
+  padding-bottom: 0.2em;
   color: var(--coffee);
-  transform: translateY(0.18em) rotate(-4deg);
+  font-weight: 700;
 }
 
 .figure {
@@ -76,6 +76,14 @@
   transition: opacity 120ms linear;
 }
 
+.closeMark {
+  font-family: var(--f-serif);
+  color: var(--coffee);
+  margin-left: -0.1em;
+  opacity: clamp(0, calc(var(--lit) - var(--n)), 1);
+  transition: opacity 300ms var(--ease);
+}
+
 /* Craig's hand on the two phrases that matter most */
 .em {
   font-family: var(--f-script);
@@ -87,7 +95,7 @@
   color: var(--coffee);
 }
 
-/* The signature lands once the last word is lit */
+/* The attribution lands once the last word is lit */
 .sign {
   display: flex;
   align-items: center;
@@ -96,9 +104,25 @@
   opacity: clamp(0, calc(var(--lit) - var(--n)), 1);
   transform: translateY(calc((1 - clamp(0, var(--lit) - var(--n), 1)) * 12px));
 }
-.signed {
-  font-size: clamp(40px, 3.6vw, 68px);
+.reach {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  margin: 10px 0 0;
+  font-size: clamp(15px, 1.2vw, 18px);
+  color: var(--ink-60);
+  opacity: clamp(0, calc(var(--lit) - var(--n) - 0.4), 1);
+}
+.reach :global(.meta) {
   color: var(--coffee);
+  font-weight: 700;
+}
+
+.signed {
+  font-weight: 800;
+  font-size: clamp(16px, 1.4vw, 20px);
+  letter-spacing: -0.01em;
+  color: var(--black);
 }
 .sign :global(.meta) {
   color: var(--ink-60);
@@ -122,6 +146,8 @@
 
 @media (prefers-reduced-motion: reduce) {
   .word,
+  .closeMark,
+  .reach,
   .sign {
     opacity: 1 !important;
     transform: none !important;

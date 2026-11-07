@@ -6,7 +6,7 @@ import styles from "./About.module.css";
 
 export function About() {
   return (
-    <section id="about" className={styles.section} aria-labelledby="about-title">
+    <section id="about" className={`pattern ${styles.section}`} aria-labelledby="about-title">
       <p className={`meta ${styles.kicker}`}>
         <span>03</span> About — {artist.name}
       </p>
@@ -57,6 +57,18 @@ export function About() {
                 </li>
               ))}
             </ul>
+            <p className={styles.earsNote}>{story.influenceNote}</p>
+          </article>
+
+          <article className={`${styles.passage} ${styles.count}`} data-reveal="fade">
+            <h3 className="meta">V. Independent</h3>
+            <p className={`display ${styles.figure_}`}>{story.streams}</p>
+            <p>{story.independent}</p>
+          </article>
+
+          <article className={`${styles.passage} ${styles.mission}`} data-reveal="fade" style={{ "--d": "120ms" } as CSSProperties}>
+            <h3 className="meta">VI. More than songs</h3>
+            <p className={styles.missionText}>{story.mission}</p>
           </article>
         </div>
       </div>

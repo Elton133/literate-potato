@@ -136,24 +136,47 @@ export const tracks: Track[] = [
     project: null,
     year: "2024",
     released: "2024-10-28",
-    // From the official DistroKid → YouTube release (file metadata).
-    links: [{ label: "YouTube", url: "https://www.youtube.com/watch?v=J0bJul4czKg" }],
+    // YouTube: official DistroKid release (file metadata). Apple Music: verified listing.
+    // ℗ 2024 The Control Room Music.
+    links: [
+      { label: "YouTube", url: "https://www.youtube.com/watch?v=J0bJul4czKg" },
+      { label: "Apple Music", url: "https://music.apple.com/gh/album/he-dey-single/1774939856" },
+    ],
   },
 
-  /* Other songs */
-  { id: "oluwa", title: "Oluwa", audio: null, project: null, year: null },
-  { id: "good-days", title: "Good Days", audio: null, project: null, year: null },
+  /*
+   * Other songs — verified against Craig's Apple Music artist page and
+   * Audiomack profile (Nov 2026). Newest first.
+   */
   {
     id: "my-hiding-place",
     title: "My Hiding Place",
     featuring: "Kyei Mensah",
     audio: null,
     project: null,
-    year: null,
+    year: "2026",
+    released: "2026-03-20",
+    links: [{ label: "Apple Music", url: "https://music.apple.com/gb/song/my-hiding-place/1885841572" }],
+  },
+  { id: "hene-jesu", title: "Hene Jesu", featuring: "Saint Kofi", audio: null, project: null, year: "2026" },
+  { id: "impossible", title: "Impossible", featuring: "Aloud City Urban", audio: null, project: null, year: "2026" },
+  { id: "no-delay", title: "No Delay", audio: null, project: null, year: "2026" },
+  { id: "good-days", title: "Good Days", audio: null, project: null, year: "2025" },
+  {
+    id: "oluwa",
+    title: "Oluwa",
+    featuring: "Eddan",
+    audio: null,
+    project: null,
+    year: "2024",
+    released: "2024-07-01",
+    links: [
+      { label: "Spotify", url: "https://open.spotify.com/album/5lNtv7ose1p9CQGLtWG4EZ" },
+      { label: "Apple Music", url: "https://music.apple.com/gh/album/oluwa-feat-eddan-single/1752826063" },
+    ],
   },
 ];
 
-/** The track the header PLAY control starts. */
 /** The track the header PLAY control starts — must have audio to play. */
 export const featuredTrackId = "he-dey";
 
@@ -185,15 +208,18 @@ export const ep = {
   /** Ordered track ids, from the official back cover. */
   tracklist: ["on-my-knees", "no-one", "interlude", "ill-be-there"] as string[],
   release: {
-    date: null as string | null,
+    /** From the Audiomack album page. */
+    date: "2026-11-04" as string | null,
     label: null as string | null,
   },
-  /** Smart link / per-platform links for the EP. */
+  /** Per-platform links for the EP. null = not found / not confirmed yet. */
   links: [
-    { label: "Spotify", url: null },
-    { label: "Apple Music", url: null },
-    { label: "Audiomack", url: null },
-    { label: "YouTube Music", url: null },
+    { label: "Audiomack", url: "https://audiomack.com/craigosae/album/the-dialogue-1" },
+    // Apple's EP page URL wasn't findable; the artist page leads with the EP.
+    { label: "Apple Music", url: "https://music.apple.com/gh/artist/craig-osae/1747588599" },
+    // Spotify artist page — the EP is his latest release there.
+    { label: "Spotify", url: "https://open.spotify.com/artist/7s12YPNxfPIyLrA6SxvhGV" },
+    { label: "YouTube", url: "https://www.youtube.com/@craigosae" },
     { label: "Boomplay", url: null },
   ] as LinkItem[],
 };
@@ -208,9 +234,18 @@ export const story = {
   production:
     "He produces his own beats — shaping a sound that answers to his own creative identity rather than a template.",
   influences: ["CalledOut Music", "Don Moen"],
+  influenceNote: "Meaningful Christian messages, carried by contemporary African sounds.",
+  /** From the official bio — update the figure as it grows. */
+  streams: "20,000+",
+  independent:
+    "streams and a growing audience — built independently, as an artist and producer still developing his craft.",
+  mission:
+    "More than songs: messages that strengthen faith, communicate God’s love and point people towards Jesus Christ.",
 };
 
 export const vision = {
+  /** From the official bio: where the sound goes next. */
+  reach: "Beyond Ghana — reaching hearts across Africa and the world.",
   /** Exact words — keep verbatim. */
   quote:
     "Changing the Ghanaian urban gospel scene to give room for different sounds and art in general, and to make young people know there's hope for the future.",
@@ -227,24 +262,30 @@ export const performances: Performance[] = [
 ];
 
 export const collaborations: { name: string; note: string | null }[] = [
-  { name: "Saint Kofi", note: null },
-  { name: "Aloud City Urban", note: null },
+  { name: "Saint Kofi", note: "Hene Jesu" },
+  { name: "Aloud City Urban", note: "Impossible" },
   { name: "Kyei Mensah", note: "My Hiding Place" },
+  { name: "Eddan", note: "Oluwa" },
 ];
 
 /* ── Official accounts ──────────────────────────────────────────────────── */
 /*  Handle is @craigosae everywhere. URLs stay null until confirmed.        */
 
+/*  Source: Craig's own Linktree (linktr.ee/craigosae) and his Audiomack
+ *  profile, which links back to the same Instagram and YouTube. Nov 2026. */
 export const socials: LinkItem[] = [
-  { label: "Instagram", url: null },
-  { label: "TikTok", url: null },
-  { label: "YouTube", url: null },
+  { label: "Instagram", url: "https://www.instagram.com/craigosae" },
+  { label: "TikTok", url: "https://www.tiktok.com/@craigosae" },
+  // = youtube.com/channel/UCKzoLOROGttIt4eEesBKOhA (same channel, confirmed by Craig)
+  { label: "YouTube", url: "https://www.youtube.com/@craigosae" },
+  { label: "X", url: "https://x.com/craigosae" },
+  { label: "WhatsApp channel", url: "https://whatsapp.com/channel/0029VbC1F4DC1FuEdgXuoP1n" },
 ];
 
 export const streaming: LinkItem[] = [
-  { label: "Spotify", url: null },
-  { label: "Apple Music", url: null },
-  { label: "Audiomack", url: null },
+  { label: "Spotify", url: "https://open.spotify.com/artist/7s12YPNxfPIyLrA6SxvhGV" },
+  { label: "Apple Music", url: "https://music.apple.com/gh/artist/craig-osae/1747588599" },
+  { label: "Audiomack", url: "https://audiomack.com/craigosae" },
   { label: "Boomplay", url: null },
 ];
 

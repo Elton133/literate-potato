@@ -10,7 +10,7 @@ const SIZES = ["(max-width: 759px) 110vw, 72vw", "(max-width: 759px) 70vw, 28vw"
 
 export function Media() {
   return (
-    <section id="media" className={styles.section} aria-labelledby="media-title">
+    <section id="media" className={`pattern ${styles.section}`} aria-labelledby="media-title">
       <div className={styles.label}>
         <p className="meta">
           <span>05</span> Media

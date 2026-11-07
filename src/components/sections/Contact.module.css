@@ -147,6 +147,11 @@
   color: var(--paper-60);
 }
 
+.inline {
+  color: var(--white);
+  border-bottom: 1px solid var(--coffee-lift);
+}
+
 .submit {
   display: inline-flex;
   align-items: center;

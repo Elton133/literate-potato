@@ -26,17 +26,6 @@
   color: var(--ink-60);
 }
 
-/* Craig's signature, written across the photograph */
-.signature {
-  position: absolute;
-  left: 5vw;
-  top: calc(var(--header-h) + 13vh);
-  font-size: clamp(64px, 9vw, 170px);
-  color: var(--coffee);
-  transform: rotate(-8deg);
-  pointer-events: none;
-}
-
 .slab {
   position: absolute;
   z-index: 0;
@@ -134,12 +123,6 @@
   }
   .handle {
     top: calc(var(--header-h) + 16px);
-  }
-  .signature {
-    left: 3vw;
-    top: auto;
-    bottom: 34%;
-    font-size: 17vw;
   }
   .slab {
     left: 0;

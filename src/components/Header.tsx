@@ -15,6 +15,31 @@ const NAV = [
 export function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const [active, setActive] = useState<string | null>(null);
+
+  // Wayfinding: the index of the section you're reading turns coffee.
+  useEffect(() => {
+    let frame = 0;
+    const check = () => {
+      frame = 0;
+      const line = window.innerHeight * 0.4;
+      let current: string | null = null;
+      for (const { href } of NAV) {
+        const el = document.querySelector(href);
+        if (el && el.getBoundingClientRect().top <= line) current = href;
+      }
+      setActive(current);
+    };
+    const onScroll = () => {
+      if (!frame) frame = requestAnimationFrame(check);
+    };
+    check();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      cancelAnimationFrame(frame);
+    };
+  }, []);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
@@ -43,7 +68,11 @@ export function Header() {
         <ol>
           {NAV.map((item) => (
             <li key={item.href}>
-              <a href={item.href}>
+              <a
+                href={item.href}
+                data-active={active === item.href || undefined}
+                aria-current={active === item.href ? "location" : undefined}
+              >
                 <span className="meta">{item.n}</span>
                 {item.label}
               </a>
