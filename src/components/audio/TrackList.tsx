@@ -1,6 +1,6 @@
 "use client";
 
-import { artist, type Track } from "@/content/site";
+import { artist, fullSongLink, type Track } from "@/content/site";
 import { useAudio, useProgress } from "./AudioProvider";
 import { PauseIcon, PlayIcon } from "./icons";
 import styles from "./TrackList.module.css";
@@ -18,10 +18,12 @@ export function TrackList({ items, size = "md" }: { items: Track[]; size?: "md" 
       {items.map((track, i) => {
         const active = engaged && current?.id === track.id;
         const playing = active && isPlaying;
+        const full = fullSongLink(track);
         const credit = [
           track.artist ?? artist.name,
+          track.with ? `with ${track.with}` : null,
           track.featuring ? `feat. ${track.featuring}` : null,
-          track.audio ? track.year : "Audio soon",
+          track.audio ? (track.preview ? "45s preview" : track.year) : "Audio soon",
         ].filter(Boolean);
 
         return (
@@ -32,7 +34,17 @@ export function TrackList({ items, size = "md" }: { items: Track[]; size?: "md" 
 
             <span className={styles.body}>
               <span className={styles.title}>{track.title}</span>
-              <span className={`meta ${styles.credit}`}>{credit.join("  ·  ")}</span>
+              <span className={`meta ${styles.credit}`}>
+                {credit.join("  ·  ")}
+                {full?.url && (
+                  <>
+                    {"  ·  "}
+                    <a className={styles.full} href={full.url} target="_blank" rel="noopener noreferrer">
+                      Full song on {full.label} ↗<span className="sr-only"> (opens in a new tab)</span>
+                    </a>
+                  </>
+                )}
+              </span>
               {active && duration > 0 && (
                 <span className={styles.bar} aria-hidden>
                   <span style={{ transform: `scaleX(${t / duration})` }} />

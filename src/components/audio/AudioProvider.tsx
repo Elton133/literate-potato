@@ -12,7 +12,7 @@ import {
 } from "react";
 import { artist, featuredTrackId, getTrack, trackLabel, tracks, type Track } from "@/content/site";
 
-type Status = "idle" | "loading" | "playing" | "paused" | "unavailable" | "error";
+type Status = "idle" | "loading" | "playing" | "paused" | "ended" | "unavailable" | "error";
 
 type AudioState = {
   track: Track | null;
@@ -133,7 +133,7 @@ export function AudioProvider({ children }: { children: ReactNode }) {
       const list = playable();
       const i = list.findIndex((t) => t.id === trackId);
       if (i > -1 && i < list.length - 1) start(list[i + 1]);
-      else setStatus("paused");
+      else setStatus("ended"); // previews end here — the dock points to the full song
     };
     el.addEventListener("ended", onEnded);
     return () => el.removeEventListener("ended", onEnded);

@@ -8,6 +8,8 @@
   background: var(--white);
   color: var(--black);
   overflow: hidden;
+  /* keeps the slab defined when it sits over the white portrait */
+  box-shadow: inset 0 0 0 1px var(--black);
   transition: background-color 400ms var(--ease);
 }
 

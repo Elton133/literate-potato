@@ -1,6 +1,14 @@
 import type { MetadataRoute } from "next";
-import { artist } from "@/content/site";
+import { abs, sitemapImages } from "@/lib/seo";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  return [{ url: artist.siteUrl, changeFrequency: "monthly", priority: 1 }];
+  return [
+    {
+      url: abs("/"),
+      changeFrequency: "monthly",
+      priority: 1,
+      // Image sitemap: helps the photographs and EP cover show in image search.
+      images: sitemapImages(),
+    },
+  ];
 }

@@ -7,26 +7,14 @@ import { Media } from "@/components/sections/Media";
 import { Record } from "@/components/sections/Record";
 import { Stage } from "@/components/sections/Stage";
 import { Vision } from "@/components/sections/Vision";
-import { artist, ep, socials, streaming } from "@/content/site";
+import { structuredData } from "@/lib/seo";
 
-/** Structured data — only confirmed profile URLs are emitted as sameAs. */
+/** Structured data — built only from facts shown on the page. */
 function JsonLd() {
-  const sameAs = [...socials, ...streaming].map((l) => l.url).filter(Boolean);
-  const data = {
-    "@context": "https://schema.org",
-    "@type": "MusicGroup",
-    name: artist.name,
-    description: artist.summary,
-    genre: [artist.genre, "Gospel", "Afrobeats"],
-    foundingLocation: { "@type": "Country", name: artist.country },
-    url: artist.siteUrl,
-    ...(sameAs.length ? { sameAs } : {}),
-    album: { "@type": "MusicAlbum", name: ep.title, albumReleaseType: "https://schema.org/EPRelease" },
-  };
   return (
     <script
       type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(data).replace(/</g, "\\u003c") }}
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData()).replace(/</g, "\\u003c") }}
     />
   );
 }

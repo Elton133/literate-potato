@@ -6,6 +6,7 @@ import { PlayerDock } from "@/components/audio/PlayerDock";
 import { Header } from "@/components/Header";
 import { motionScript } from "@/components/RevealObserver";
 import { artist } from "@/content/site";
+import { SEO } from "@/lib/seo";
 import "./globals.css";
 
 const dmSans = DM_Sans({
@@ -27,27 +28,34 @@ const bacalisties = localFont({
   display: "swap",
 });
 
-const title = `${artist.name} — ${artist.genre} from ${artist.country}`;
-
 export const metadata: Metadata = {
   metadataBase: new URL(artist.siteUrl),
-  title: { default: title, template: `%s — ${artist.name}` },
-  description: artist.summary,
-  keywords: [artist.name, "Afrogospel", "Ghana gospel", "urban gospel", "The Dialogue 1", "Ghanaian gospel artist"],
+  title: { default: SEO.title, template: `%s — ${artist.name}` },
+  description: SEO.description,
+  applicationName: artist.name,
+  keywords: SEO.keywords,
   authors: [{ name: artist.name }],
+  creator: artist.name,
+  category: "music",
   alternates: { canonical: "/" },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1 },
+  },
   openGraph: {
     type: "profile",
-    title,
-    description: artist.summary,
+    title: SEO.title,
+    description: SEO.description,
     siteName: artist.name,
     url: "/",
     locale: "en_GH",
+    // images come from app/opengraph-image.tsx automatically
   },
   twitter: {
     card: "summary_large_image",
-    title,
-    description: artist.summary,
+    title: SEO.title,
+    description: SEO.description,
   },
 };
 

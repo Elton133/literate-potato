@@ -1,6 +1,6 @@
 "use client";
 
-import { artist, trackLabel } from "@/content/site";
+import { artist, fullSongLink } from "@/content/site";
 import { formatTime, useAudio, useProgress } from "./AudioProvider";
 import { PauseIcon, PlayIcon, StepIcon } from "./icons";
 import styles from "./PlayerDock.module.css";
@@ -13,6 +13,8 @@ export function PlayerDock() {
 
   const pct = duration ? current / duration : 0;
   const unavailable = status === "unavailable" || status === "error";
+  const full = fullSongLink(track);
+  const previewEnded = status === "ended" && track.preview;
 
   return (
     <aside
@@ -41,11 +43,26 @@ export function PlayerDock() {
 
       <div className={styles.body}>
         <p className={styles.line} aria-live="polite">
-          <span className={styles.title}>{trackLabel(track)}</span>
-          <span className={`meta ${styles.by}`}>{artist.name}</span>
+          <span className={styles.title}>{track.title}</span>
+          <span className={`meta ${styles.by}`}>
+            {artist.name}
+            {track.with ? ` & ${track.with}` : ""}
+          </span>
+          {track.preview && <span className={`meta ${styles.badge}`}>Preview</span>}
         </p>
 
-        {unavailable ? (
+        {previewEnded ? (
+          <p className={`meta ${styles.note}`}>
+            That was a preview.{" "}
+            {full?.url ? (
+              <a href={full.url} target="_blank" rel="noopener noreferrer">
+                Hear the full song on {full.label} ↗
+              </a>
+            ) : (
+              <a href="#music">Hear the full song ↗</a>
+            )}
+          </p>
+        ) : unavailable ? (
           <p className={`meta ${styles.note}`}>
             {status === "error" ? "Audio could not load. " : "Preview arriving soon. "}
             <a href="#music">Listen elsewhere ↗</a>

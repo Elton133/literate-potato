@@ -34,8 +34,9 @@ export function Header() {
     <>
     <header className={styles.header} data-scrolled={scrolled || undefined} data-open={open || undefined}>
       <a href="#top" className={styles.mark} aria-label="Craig Osae — home">
-        <span>Craig</span>
-        <span>Osae</span>
+        {/* The official wordmark, painted in currentColor via a mask so it
+            follows the header's colour (and its inversion over the hero). */}
+        <span className={styles.wordmark} aria-hidden />
       </a>
 
       <nav className={styles.nav} aria-label="Primary">

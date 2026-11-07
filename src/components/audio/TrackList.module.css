@@ -47,6 +47,15 @@
   white-space: pre-wrap; /* keeps the spaced separators, still wraps on phones */
 }
 
+.full {
+  color: var(--black);
+  border-bottom: 1px solid var(--coffee);
+  transition: color 200ms;
+}
+.full:hover {
+  color: var(--coffee);
+}
+
 /* Solid square key — the button is the only "box" in the row */
 .play {
   display: grid;

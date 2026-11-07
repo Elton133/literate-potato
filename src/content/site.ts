@@ -30,6 +30,17 @@ export type Track = {
   featuring?: string | null;
   /** Performing artist when it isn't Craig (e.g. "Angel Ahiati"). */
   artist?: string | null;
+  /** Co-billed artist, shown as "with …" (e.g. "The CEO"). */
+  with?: string | null;
+  /**
+   * true when `audio` is a short excerpt rather than the full song.
+   * The site then sends listeners to `links` for the whole track.
+   */
+  preview?: boolean;
+  /** Where to hear the full song. Only verified URLs. */
+  links?: LinkItem[];
+  /** ISO date, when known. */
+  released?: string | null;
   /** Direct audio file URL (mp3/m4a/ogg) or "/audio/file.mp3". */
   audio: string | null;
   /** Which project the song belongs to, once confirmed. */
@@ -63,8 +74,8 @@ export const artist = {
   /** Used for SEO description. */
   summary:
     "Craig Osae is a Ghanaian Afrogospel artist, singer, songwriter and music producer blending contemporary African gospel, Afrobeats and traditional Methodist hymn influences.",
-  /** Set to the production domain once known (also via NEXT_PUBLIC_SITE_URL). */
-  siteUrl: process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
+  /** Production domain. NEXT_PUBLIC_SITE_URL can override it (e.g. for a staging URL). */
+  siteUrl: process.env.NEXT_PUBLIC_SITE_URL ?? "https://craigosae.com",
 };
 
 /* ── Photography ────────────────────────────────────────────────────────── */
@@ -113,6 +124,22 @@ export const tracks: Track[] = [
   { id: "interlude", title: "Interlude", artist: "Angel Ahiati", audio: null, project: "the-dialogue-1", year: null },
   { id: "ill-be-there", title: "I’ll Be There", audio: null, project: "the-dialogue-1", year: null },
 
+  /* Singles */
+  {
+    id: "he-dey",
+    title: "He Dey",
+    with: "The CEO",
+    // 45-second excerpt (1:40–2:25) cut from the master in /media-source.
+    // The full song is never served by this site.
+    audio: "/audio/he-dey-preview.m4a",
+    preview: true,
+    project: null,
+    year: "2024",
+    released: "2024-10-28",
+    // From the official DistroKid → YouTube release (file metadata).
+    links: [{ label: "YouTube", url: "https://www.youtube.com/watch?v=J0bJul4czKg" }],
+  },
+
   /* Other songs */
   { id: "oluwa", title: "Oluwa", audio: null, project: null, year: null },
   { id: "good-days", title: "Good Days", audio: null, project: null, year: null },
@@ -127,7 +154,8 @@ export const tracks: Track[] = [
 ];
 
 /** The track the header PLAY control starts. */
-export const featuredTrackId = "on-my-knees";
+/** The track the header PLAY control starts — must have audio to play. */
+export const featuredTrackId = "he-dey";
 
 export const ep = {
   title: "The Dialogue 1",
@@ -233,7 +261,10 @@ export const contact = {
 export const getTrack = (id: string) => tracks.find((t) => t.id === id) ?? null;
 
 export const trackLabel = (t: Track) =>
-  t.featuring ? `${t.title} (feat. ${t.featuring})` : t.title;
+  t.featuring ? `${t.title} (feat. ${t.featuring})` : t.with ? `${t.title} (with ${t.with})` : t.title;
+
+/** First verified "full song" link for a track, if any. */
+export const fullSongLink = (t: Track) => t.links?.find((l) => l.url) ?? null;
 
 /** Songs that aren't on the given project. */
 export const otherTracks = (projectId: string) => tracks.filter((t) => t.project !== projectId);
