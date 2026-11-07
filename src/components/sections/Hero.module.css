@@ -156,6 +156,10 @@
     margin: 18px 0 0 calc(var(--gutter) - 0.04em);
     font-size: 25vw;
   }
+  .current {
+    border-top: 0;
+    padding-top: 6px;
+  }
   .caption {
     position: relative;
     order: 4;

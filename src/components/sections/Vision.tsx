@@ -65,12 +65,11 @@ export function Vision() {
     <section ref={sectionRef} id="vision" className={styles.section} aria-labelledby="vision-title">
       <div ref={pinRef} className={styles.pin} style={{ "--n": N } as CSSProperties}>
         <div className={styles.head}>
-          <p className="meta">
-            <span>04</span> Vision
-          </p>
-          <h2 id="vision-title" className="meta">
-            A manifesto
+          <span className={`meta ${styles.index}`}>04</span>
+          <h2 id="vision-title" className={`display ${styles.heading}`}>
+            Vision
           </h2>
+          <span className={`script ${styles.tag}`}>a manifesto</span>
         </div>
 
         <figure className={styles.figure}>

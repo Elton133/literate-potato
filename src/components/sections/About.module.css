@@ -136,7 +136,12 @@
 @media (max-width: 899px) {
   .quote {
     margin-left: 0;
-    font-size: 15vw;
+    font-size: 11.8vw; /* each line runs the full width without breaking */
+    line-height: 1;
+  }
+  .passage h3 {
+    border-top: 0;
+    padding-top: 0;
   }
   .quote > span > span:nth-child(2) {
     padding-left: 10vw;

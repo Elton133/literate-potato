@@ -87,25 +87,25 @@
   line-height: 1.2;
 }
 
+/* Facts as a quiet 2 × 2 grid — label over value, no rules */
 .facts {
   margin: 0;
-  border-top: 2px solid var(--black);
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px 24px;
+  align-content: start;
 }
 .facts div {
-  display: flex;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 9px 0;
-  border-bottom: 1px solid var(--ink-20);
+  display: grid;
+  gap: 4px;
 }
 .facts dt {
   color: var(--ink-60);
 }
 .facts dd {
   margin: 0;
-  font-weight: 600;
-  font-size: 14px;
-  text-align: right;
+  font-weight: 700;
+  font-size: clamp(16px, 1.3vw, 19px);
 }
 
 /* ── Lower: tracklist + streaming ─────────────────────────── */
@@ -125,8 +125,11 @@
 }
 .stream h3,
 .listHead h3 {
-  margin: 0 0 12px;
+  margin: 0 0 18px;
   font-weight: 700;
+}
+.stream h3 {
+  color: var(--ink-60);
 }
 .listHead {
   display: flex;

@@ -11,7 +11,8 @@ export function Links({
   className = "",
 }: {
   items: LinkItem[];
-  size?: "md" | "lg";
+  /** md/lg: ruled rows · inline: a flowing, rule-free list */
+  size?: "md" | "lg" | "inline";
   className?: string;
 }) {
   return (
@@ -29,7 +30,7 @@ export function Links({
           ) : (
             <span className={`${styles.row} ${styles.pending}`}>
               <span className={styles.label}>{item.label}</span>
-              <span className={`meta ${styles.state}`}>Pending</span>
+              <span className={`meta ${styles.state}`}>{size === "inline" ? "Soon" : "Pending"}</span>
             </span>
           )}
         </li>

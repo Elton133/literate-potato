@@ -21,21 +21,26 @@
   --lit: 1;
 }
 
+/* Header: index, a solid VISION, and Craig's hand — no rule needed */
 .head {
   display: flex;
-  justify-content: space-between;
-  border-bottom: 2px solid var(--black);
-  padding-bottom: 12px;
+  align-items: flex-end;
+  gap: clamp(12px, 1.6vw, 24px);
 }
-.head p,
-.head h2 {
-  margin: 0;
-  font-weight: 400;
-}
-.head span {
+.index {
+  align-self: flex-start;
   font-weight: 700;
-  margin-right: 18px;
   color: var(--coffee);
+}
+.heading {
+  margin: 0;
+  font-size: clamp(44px, 6vw, 112px);
+  line-height: 0.8;
+}
+.tag {
+  font-size: clamp(30px, 3vw, 56px);
+  color: var(--coffee);
+  transform: translateY(0.18em) rotate(-4deg);
 }
 
 .figure {

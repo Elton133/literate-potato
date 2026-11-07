@@ -50,9 +50,17 @@
   .handle {
     font-size: 17vw;
   }
+  .section {
+    border-top: 0;
+  }
   .cols {
     grid-template-columns: minmax(0, 1fr);
     margin-left: 0;
+  }
+  .cols h3 {
+    border-bottom: 0;
+    padding-bottom: 4px;
+    color: var(--ink-60);
   }
   .note {
     margin-left: 0;

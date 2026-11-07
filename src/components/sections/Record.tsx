@@ -89,7 +89,7 @@ export function Record() {
 
         <aside className={styles.stream} data-reveal="fade" style={{ "--d": "150ms" } as CSSProperties}>
           <h3 className="meta">Stream {ep.title}</h3>
-          <Links items={ep.links} />
+          <Links items={ep.links} size="inline" />
         </aside>
       </div>
     </section>

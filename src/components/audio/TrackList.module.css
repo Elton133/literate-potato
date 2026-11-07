@@ -2,98 +2,113 @@
   list-style: none;
   margin: 0;
   padding: 0;
-  border-top: 2px solid var(--black);
+  display: grid;
+  gap: clamp(6px, 1vw, 14px);
 }
 
 .row {
-  position: relative;
   display: grid;
-  grid-template-columns: 44px 44px 1fr auto;
+  grid-template-columns: clamp(44px, 5vw, 72px) minmax(0, 1fr) auto;
   align-items: center;
-  gap: 0 8px;
-  min-height: 64px;
-  border-bottom: 1px solid var(--ink-20);
-  transition: background-color 400ms var(--ease), color 400ms var(--ease);
-}
-.row:hover,
-.row[data-active] {
-  background: var(--black);
-  color: var(--white);
-}
-
-.play {
-  display: grid;
-  place-items: center;
-  width: 44px;
-  height: 44px;
-  border: 1px solid currentColor;
-  background: transparent;
-  margin-left: 0;
-  transition: background-color 300ms, color 300ms;
-}
-.row:hover .play,
-.row[data-active] .play {
-  background: var(--white);
-  color: var(--black);
-  border-color: var(--white);
+  gap: clamp(12px, 1.6vw, 24px);
+  padding: clamp(10px, 1.2vw, 16px) 0;
 }
 
 .idx {
-  padding-left: 10px;
-  opacity: 0.6;
+  align-self: start;
+  padding-top: 0.12em;
+  font-weight: 300;
+  font-size: clamp(22px, 2.4vw, 36px);
+  line-height: 1;
+  letter-spacing: -0.04em;
+  font-variant-numeric: tabular-nums;
+  color: var(--coffee);
+  transition: transform 500ms var(--ease);
+}
+
+.body {
+  display: grid;
+  gap: 6px;
+  min-width: 0;
 }
 
 .title {
   font-weight: 800;
   text-transform: uppercase;
-  font-size: clamp(22px, 2.6vw, 36px);
-  line-height: 1;
-  padding: 14px 0;
-  transition: transform 500ms var(--ease);
-}
-.row:hover .title {
-  transform: translateX(10px);
-}
-.title em {
-  font-family: var(--f-serif);
-  font-weight: 400;
-  text-transform: none;
-  font-size: 0.62em;
-  letter-spacing: 0;
+  font-size: clamp(24px, 3.2vw, 48px);
+  line-height: 0.92;
+  letter-spacing: -0.045em;
+  transition: transform 500ms var(--ease), color 300ms;
 }
 
-.sm .row {
-  min-height: 52px;
-}
-.sm .title {
-  font-size: clamp(18px, 1.8vw, 24px);
-  padding: 10px 0;
-}
-
-.status {
-  padding-right: 14px;
-  opacity: 0.55;
+.credit {
   font-size: 10px;
+  color: var(--ink-60);
+  white-space: pre-wrap; /* keeps the spaced separators, still wraps on phones */
 }
 
+/* Solid square key — the button is the only "box" in the row */
+.play {
+  display: grid;
+  place-items: center;
+  width: clamp(44px, 3.8vw, 56px);
+  aspect-ratio: 1;
+  border: 0;
+  background: var(--black);
+  color: var(--white);
+  transition: background-color 300ms var(--ease), transform 300ms var(--ease);
+}
+
+.row:hover .title {
+  transform: translateX(8px);
+}
+.row:hover .play,
+.row[data-active] .play {
+  background: var(--coffee);
+}
+.row[data-active] .title {
+  color: var(--coffee);
+}
+
+/* progress — appears only on the track that's playing */
 .bar {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: -1px;
-  height: 3px;
+  display: block;
+  height: 2px;
+  margin-top: 4px;
+  background: var(--ink-20);
+}
+.bar > span {
+  display: block;
+  height: 100%;
   background: var(--coffee);
   transform-origin: left;
   transition: transform 250ms linear;
 }
 
+/* ── Small: secondary list, two columns on wide screens ─── */
+.sm {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: clamp(24px, 4vw, 64px);
+}
+.sm .row {
+  grid-template-columns: 32px minmax(0, 1fr) auto;
+  gap: 12px;
+}
+.sm .idx {
+  font-size: clamp(18px, 1.6vw, 24px);
+}
+.sm .title {
+  font-size: clamp(18px, 1.8vw, 26px);
+}
+.sm .play {
+  width: 40px;
+}
+
 @media (max-width: 759px) {
   .row {
-    grid-template-columns: 44px 36px 1fr;
+    grid-template-columns: 36px minmax(0, 1fr) auto;
   }
-  .status {
-    grid-column: 3;
-    padding: 0 0 12px;
-    margin-top: -8px;
+  .sm {
+    grid-template-columns: minmax(0, 1fr);
   }
 }

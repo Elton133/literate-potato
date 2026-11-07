@@ -133,6 +133,7 @@
 }
 /* divider draws left → right */
 .sheet li::before {
+  display: none; /* cleaner menu — spacing does the separating */
   content: "";
   position: absolute;
   inset: 0 0 auto 0;
@@ -146,7 +147,7 @@
   display: flex;
   align-items: flex-start;
   gap: 12px;
-  padding: 10px 0 6px;
+  padding: 8px 0 10px;
   transform: translateY(105%);
   transition: transform 300ms var(--ease-in-out);
 }
@@ -203,6 +204,9 @@
   }
   .header[data-open] {
     background: var(--black);
+  }
+  .header[data-scrolled] {
+    border-bottom-color: transparent;
   }
 }
 @media (min-width: 900px) {
