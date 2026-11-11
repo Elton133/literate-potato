@@ -1,27 +1,23 @@
 .section {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr);
+  gap: clamp(32px, 5vw, 96px);
+  align-items: end;
   background: var(--white);
   color: var(--black);
+  padding: clamp(64px, 7vw, 112px) var(--gutter);
   border-top: 3px solid var(--black); /* separates it from the Stage bill above */
-  padding: clamp(80px, 10vw, 160px) var(--gutter) clamp(80px, 10vw, 160px);
 }
 
-.kicker {
-  margin: 0 0 clamp(16px, 2vw, 32px);
+.head :global(.meta) {
+  margin: 0 0 12px;
 }
-.kicker span {
-  color: var(--coffee);
-  font-weight: 700;
-  margin-right: 18px;
-}
-
-/* Sized to sit fully on screen, edge to edge within the gutters */
 .handle {
   margin: 0 0 0 -0.04em;
-  font-size: 17.2vw;
-  line-height: 0.78;
-  white-space: nowrap;
+  font-size: clamp(48px, 7vw, 120px);
+  line-height: 0.85;
   text-transform: lowercase;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.04em;
 }
 .at {
   color: var(--coffee);
@@ -29,40 +25,24 @@
 
 .cols {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: clamp(24px, 5vw, 96px);
-  margin-top: clamp(48px, 6vw, 96px);
-  margin-left: 16vw;
+  gap: 22px;
 }
 .cols h3 {
-  margin: 0;
-  padding: 10px 0;
-  border-bottom: 2px solid var(--black);
+  margin: 0 0 6px;
   font-weight: 700;
+  color: var(--ink-60);
 }
-
 .note {
-  margin: clamp(40px, 5vw, 72px) 0 0 16vw;
+  margin: 4px 0 0;
   color: var(--ink-60);
 }
 
-@media (max-width: 759px) {
-  .handle {
-    font-size: 17vw;
-  }
+@media (max-width: 899px) {
   .section {
+    grid-template-columns: minmax(0, 1fr);
     border-top: 0;
   }
-  .cols {
-    grid-template-columns: minmax(0, 1fr);
-    margin-left: 0;
-  }
-  .cols h3 {
-    border-bottom: 0;
-    padding-bottom: 4px;
-    color: var(--ink-60);
-  }
-  .note {
-    margin-left: 0;
+  .handle {
+    font-size: 15vw;
   }
 }

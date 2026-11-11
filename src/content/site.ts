@@ -22,6 +22,8 @@ export type Media = {
   /** CSS object-position, used to art-direct crops. e.g. "62% 30%". */
   focus?: string;
   credit?: string | null;
+  /** Short gallery caption, e.g. "Carnival of Stars" or "Studio". */
+  caption?: string;
 };
 
 export type Track = {
@@ -110,14 +112,16 @@ export const photos = {
    * the section isn't one outfit, one backdrop.
    */
   gallery: [
-    { src: "/images/live/carnival-of-stars/02.jpg", width: 1280, height: 853, alt: "Craig Osae performing in a red sweatshirt at Carnival of Stars", focus: "70% 40%" },
-    { src: "/images/craig-osae-stool-denim.jpg", width: 2400, height: 3600, alt: "Craig Osae seated on a stool in a black knit and jeans", focus: "50% 25%" },
-    { src: "/images/live/octagon-2025/02.jpg", width: 1170, height: 1465, alt: "Craig Osae singing on stage at OCTAGON Concert 2025", focus: "50% 40%" },
-    { src: "/images/live/supernatural-night/01.jpg", width: 1280, height: 989, alt: "Craig Osae singing at Supernatural Night", focus: "40% 35%" },
-    { src: "/images/craig-osae-chair-03.jpg", width: 2706, height: 3600, alt: "Craig Osae seated on a wooden chair, hand to his chin", focus: "50% 38%" },
-    { src: "/images/craig-osae-smile.jpg", width: 2505, height: 3600, alt: "Craig Osae smiling, holding his sunglasses", focus: "50% 30%" },
-    { src: "/images/craig-osae-stool-bw.jpg", width: 2817, height: 3600, alt: "Black-and-white photograph of Craig Osae on a stool", focus: "50% 45%" },
-    { src: "/images/craig-osae-chair-denim.jpg", width: 2647, height: 3600, alt: "Craig Osae seated on a wooden chair in a black knit and jeans", focus: "50% 38%" },
+    // wide · tall · tall · wide — landscapes only in the wide frames,
+    // portraits only in the tall ones, so nothing is cropped to a sliver.
+    { src: "/images/live/carnival-of-stars/02.jpg", width: 1280, height: 853, caption: "Carnival of Stars", alt: "Craig Osae performing in a red sweatshirt at Carnival of Stars", focus: "72% 35%" },
+    { src: "/images/craig-osae-stool-denim.jpg", width: 2400, height: 3600, caption: "Studio", alt: "Craig Osae seated on a stool in a black knit and jeans", focus: "50% 25%" },
+    { src: "/images/live/octagon-2025/02.jpg", width: 1170, height: 1465, caption: "OCTAGON Concert 2025", alt: "Craig Osae singing on stage at OCTAGON Concert 2025", focus: "50% 40%" },
+    { src: "/images/live/supernatural-night/02.jpg", width: 1280, height: 989, caption: "Supernatural Night", alt: "Craig Osae performing at Supernatural Night", focus: "50% 30%" },
+    { src: "/images/live/carnival-of-stars/01.jpg", width: 1280, height: 853, caption: "Carnival of Stars", alt: "Craig Osae performing with the band at Carnival of Stars", focus: "55% 35%" },
+    { src: "/images/craig-osae-smile.jpg", width: 2505, height: 3600, caption: "Studio", alt: "Craig Osae smiling, holding his sunglasses", focus: "50% 30%" },
+    { src: "/images/craig-osae-stool-bw.jpg", width: 2817, height: 3600, caption: "Studio", alt: "Black-and-white photograph of Craig Osae on a stool", focus: "50% 45%" },
+    { src: "/images/live/supernatural-night/03.jpg", width: 1280, height: 989, caption: "Supernatural Night", alt: "Craig Osae with the microphone at Supernatural Night", focus: "62% 30%" },
   ] as Media[],
   /*
    * Also available, not currently shown: craig-osae-full-length-01/02,
@@ -190,7 +194,7 @@ export const tracks: Track[] = [
 ];
 
 /** The track the header PLAY control starts — must have audio to play. */
-export const featuredTrackId = "he-dey";
+export const featuredTrackId = "on-my-knees"; // opens The Dialogue 1
 
 export const ep = {
   title: "The Dialogue 1",
@@ -308,7 +312,9 @@ export const performances: Performance[] = [
     id: "tehillah-kabash",
     name: "Tehillah Kabash",
     year: "’26",
-    photos: [live("tehillah-kabash", "01", 720, 1280, "The stage at Tehillah Kabash ’26")],
+    // live/tehillah-kabash/01.jpg is a wide stage shot without Craig in
+    // view — held back until there's a photo of him performing.
+    photos: [],
   },
 ];
 

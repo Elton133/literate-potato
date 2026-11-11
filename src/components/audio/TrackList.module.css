@@ -41,13 +41,17 @@
   transition: transform 500ms var(--ease), color 300ms;
 }
 
+/* sentence case, not shouty meta — "30s" no longer reads as a decade */
 .credit {
-  font-size: 10px;
+  font-size: 13px;
+  letter-spacing: 0;
+  text-transform: none;
   color: var(--ink-60);
   white-space: pre-wrap; /* keeps the spaced separators, still wraps on phones */
 }
 
 .full {
+  white-space: nowrap; /* the link never splits across lines */
   color: var(--black);
   border-bottom: 1px solid var(--coffee);
   transition: color 200ms;

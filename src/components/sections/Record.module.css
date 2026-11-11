@@ -55,15 +55,6 @@
   color: var(--black);
 }
 
-.numeral {
-  display: block;
-  margin: -0.06em 0 0 auto;
-  width: max-content;
-  font-size: clamp(200px, 30vw, 520px);
-  line-height: 0.72;
-  color: var(--coffee);
-  margin-right: 0; /* fully on screen, aligned to the right gutter */
-}
 
 .notes {
   position: relative;
@@ -72,7 +63,7 @@
   display: grid;
   grid-template-columns: 1.3fr 1fr;
   gap: clamp(24px, 3vw, 48px);
-  margin-top: clamp(28px, 4vw, 56px);
+  margin-top: clamp(28px, 3vw, 44px);
 }
 
 .desc p {
@@ -182,10 +173,6 @@
   .title {
     margin: 32px 0 0 0;
     font-size: 17vw;
-  }
-  .numeral {
-    font-size: 38vw;
-    margin-top: -0.3em;
   }
   .lower {
     grid-template-columns: minmax(0, 1fr);

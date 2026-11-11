@@ -21,7 +21,7 @@
 }
 .title {
   margin: 0;
-  font-size: clamp(72px, 13vw, 240px);
+  font-size: clamp(56px, 7.5vw, 132px);
   writing-mode: vertical-rl;
   transform: rotate(180deg);
   line-height: 0.78;
@@ -49,46 +49,53 @@
   color: var(--paper-60);
 }
 
-/* a — wide, enters from and bleeds past the right edge */
+/* Sized so each photograph is a frame on the wall, not the wall:
+   a third to half the width, gently overlapping. */
+
+/* a — wide landscape, top right */
 .a {
-  grid-column: 4 / -1;
-  margin-right: calc(-1 * var(--gutter) - 10vw);
+  grid-column: 6 / span 6;
 }
 .a .frame {
   aspect-ratio: 16 / 10;
 }
 
-/* b — small, low, tucked against the left */
+/* later wide frames sit in the same row as a "d" — give them its spacing */
+.a:not(:first-child) {
+  margin-top: clamp(40px, 5vw, 80px);
+}
+
+/* b — small portrait, low left */
 .b {
-  grid-column: 2 / span 3;
-  margin-top: -6vw;
+  grid-column: 3 / span 3;
+  margin-top: 3vw;
 }
 .b .frame {
   aspect-ratio: 3 / 4;
 }
 
-/* c — tall, overlaps the bottom of a */
+/* c — portrait, tucked under the corner of a */
 .c {
-  grid-column: 7 / span 4;
-  margin-top: -14vw;
+  grid-column: 8 / span 3;
+  margin-top: -5vw;
   z-index: 1;
 }
 .c .frame {
   aspect-ratio: 4 / 5;
-  outline: clamp(8px, 1vw, 16px) solid var(--black);
+  outline: clamp(6px, 0.8vw, 12px) solid var(--black);
 }
 
-/* d — panoramic, bleeds past the left edge */
+/* d — landscape, from the left edge */
 .d {
-  grid-column: 1 / span 9;
-  margin-left: calc(-1 * var(--gutter) - 8vw);
-  margin-top: clamp(48px, 7vw, 120px);
+  grid-column: 1 / span 5;
+  margin-left: calc(-1 * var(--gutter));
+  margin-top: clamp(40px, 5vw, 80px);
 }
 .d .frame {
-  aspect-ratio: 21 / 9;
+  aspect-ratio: 3 / 2;
 }
 .d figcaption {
-  padding-left: calc(var(--gutter) + 8vw);
+  padding-left: var(--gutter);
 }
 
 /* ── Phones: a horizontal swipe strip ─────────────────────
@@ -108,7 +115,7 @@
   .title {
     writing-mode: horizontal-tb;
     transform: none;
-    font-size: 26vw;
+    font-size: 19vw;
   }
   .swipe {
     display: flex;
@@ -132,10 +139,11 @@
   }
   .plate,
   .a,
+  .a:not(:first-child),
   .b,
   .c,
   .d {
-    flex: 0 0 78vw;
+    flex: 0 0 70vw;
     margin: 0;
     scroll-snap-align: start;
   }
@@ -146,7 +154,7 @@
   }
   .b,
   .d {
-    flex-basis: 64vw;
+    flex-basis: 58vw;
     align-self: flex-end;
   }
   .b .frame,

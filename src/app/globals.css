@@ -14,9 +14,9 @@
   /* the same hue, lifted — only for small accents on black / coffee */
   --coffee-lift: #a36552;
 
-  --ink-60: rgb(8 8 8 / 0.6);
+  --ink-60: rgb(8 8 8 / 0.72);
   --ink-20: rgb(8 8 8 / 0.2);
-  --paper-60: rgb(245 243 238 / 0.62);
+  --paper-60: rgb(245 243 238 / 0.76);
   --paper-20: rgb(245 243 238 / 0.18);
 
   /* DM Sans carries everything structural; Bacalisties is Craig's hand. */

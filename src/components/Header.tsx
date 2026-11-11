@@ -4,12 +4,11 @@ import { useEffect, useState, type CSSProperties } from "react";
 import { PlayControl } from "./audio/PlayControl";
 import styles from "./Header.module.css";
 
-/** `n` mirrors each section's editorial index, like a contents page. */
 const NAV = [
-  { href: "#music", label: "Music", n: "02" },
-  { href: "#about", label: "About", n: "03" },
-  { href: "#vision", label: "Vision", n: "04" },
-  { href: "#contact", label: "Contact", n: "08" },
+  { href: "#music", label: "Music" },
+  { href: "#about", label: "About" },
+  { href: "#vision", label: "Vision" },
+  { href: "#contact", label: "Contact" },
 ];
 
 export function Header() {
@@ -73,7 +72,6 @@ export function Header() {
                 data-active={active === item.href || undefined}
                 aria-current={active === item.href ? "location" : undefined}
               >
-                <span className="meta">{item.n}</span>
                 {item.label}
               </a>
             </li>
@@ -95,7 +93,6 @@ export function Header() {
         {NAV.map((item, i) => (
           <li key={item.href} style={{ "--i": i } as CSSProperties}>
             <a href={item.href} onClick={() => setOpen(false)}>
-              <span className="meta">{item.n}</span>
               <span className="display">{item.label}</span>
             </a>
           </li>

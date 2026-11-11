@@ -67,10 +67,9 @@
   opacity: 0.55;
   transition: color 400ms var(--ease), opacity 400ms var(--ease);
 }
-/* the section you're in: its index quietly turns coffee */
-.nav a[data-active] :global(.meta) {
-  opacity: 1;
-  color: var(--coffee-lift);
+/* the section you're in keeps its underline */
+.nav a[data-active]::after {
+  transform: scaleX(1);
 }
 .nav a::after {
   content: "";

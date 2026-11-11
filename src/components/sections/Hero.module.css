@@ -37,71 +37,102 @@
 }
 
 
-.name {
+/* Left column: the wordmark over the two actions, anchored low */
+.lockup {
   position: absolute;
   z-index: 2;
-  left: calc(var(--gutter) - 0.04em);
-  bottom: 5vh;
+  left: var(--gutter);
+  bottom: 6vh;
+  display: grid;
+  gap: clamp(24px, 3vw, 40px);
+}
+
+.name {
   margin: 0;
-  /* Sized so both lines end before the portrait (which starts at 50vw):
-     the name stays solid off-white and fully legible on black. */
-  font-size: min(16.4vw, 31vh);
-  line-height: 0.84;
-  color: var(--white);
-  pointer-events: none;
 }
-.nameLines {
+/* public/images/wordmark-stacked.png — CRAIG over OSAE, 975 × 740 */
+.wordmark {
   display: block;
+  /* sized to stay inside the black half, clear of the portrait at 50vw */
+  width: min(40vw, 58vh);
+  aspect-ratio: 975 / 740;
+  background-color: var(--white);
+  -webkit-mask: url("/images/wordmark-stacked.png") left bottom / contain no-repeat;
+  mask: url("/images/wordmark-stacked.png") left bottom / contain no-repeat;
 }
-/* Second line steps right, toward the photograph */
-.nameLines > span:nth-child(2) {
-  padding-left: 0.3em;
+
+.ctas {
+  animation: ctaIn 900ms var(--ease) 700ms both;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 24px;
+}
+
+@keyframes ctaIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ctas {
+    animation: none;
+  }
+}
+
+/* Primary: a solid off-white slab — the clearest thing to press */
+.listen {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  height: 56px;
+  padding: 0 26px 0 22px;
+  border: 0;
+  background: var(--white);
+  color: var(--black);
+  font-weight: 800;
+  font-size: 15px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  transition: background-color 300ms var(--ease), color 300ms var(--ease);
+}
+.listen:hover,
+.listen[aria-pressed="true"] {
+  background: var(--coffee);
+  color: var(--white);
+}
+
+/* Secondary: quiet text link */
+.more {
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--paper-60);
+  border-bottom: 1px solid var(--paper-20);
+  padding-bottom: 3px;
+  transition: color 300ms, border-color 300ms;
+}
+.more:hover {
+  color: var(--white);
+  border-color: var(--white);
 }
 
 .caption {
   position: absolute;
   z-index: 3;
   right: var(--gutter);
-  bottom: 5vh;
+  bottom: 6vh;
   width: clamp(240px, 22vw, 330px);
   background: var(--black);
-  padding: 20px 20px 0;
+  padding: 20px;
 }
 
 .statement {
-  margin: 0 0 22px;
+  margin: 0;
   font-size: 15px;
   line-height: 1.45;
-}
-
-.current {
-  display: grid;
-  grid-template-columns: auto 1fr;
-  align-items: baseline;
-  gap: 12px;
-  padding: 14px 0 16px;
-  border-top: 1px solid var(--paper-20);
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  font-size: 14px;
-}
-.current em {
-  font-family: var(--f-serif);
-  font-weight: 400;
-  text-transform: none;
-  letter-spacing: 0;
-  font-size: 16px;
-  color: var(--paper-60);
-}
-.current :global(.meta) {
-  color: var(--paper-60);
-}
-.current > span:last-child {
-  transition: transform 400ms var(--ease);
-}
-.current:hover > span:last-child {
-  transform: translateX(6px);
 }
 
 /* ── Mobile recomposition ─────────────────────────────────── */
@@ -118,7 +149,7 @@
     inset: auto;
     order: 1;
     width: 112vw;
-    height: 72svh;
+    height: 54svh;
     margin-left: 14vw; /* subject pushed right, cropped by the edge */
   }
   .handle {
@@ -131,24 +162,27 @@
     width: 20vw;
     height: 30svh;
   }
-  .name {
+  .lockup {
     position: relative;
     order: 2;
     left: auto;
     bottom: auto;
-    margin: 18px 0 0 calc(var(--gutter) - 0.04em);
-    font-size: 25vw;
+    margin: 28px var(--gutter) 0;
+    gap: 24px;
   }
-  .current {
-    border-top: 0;
-    padding-top: 6px;
+  .wordmark {
+    width: 62vw;
+  }
+  .listen {
+    height: 52px;
+    font-size: 13px;
   }
   .caption {
     position: relative;
-    order: 4;
+    order: 3;
     inset: auto;
     width: auto;
-    margin: 28px var(--gutter) 0 22vw;
+    margin: 28px var(--gutter) 0;
     padding: 0;
   }
 }
@@ -161,8 +195,11 @@
   .slab {
     left: 26vw;
   }
-  .name {
-    bottom: calc(5vh + 150px);
+  .lockup {
+    bottom: calc(6vh + 150px);
+  }
+  .wordmark {
+    width: min(40vw, 50vh);
   }
   .caption {
     width: 300px;

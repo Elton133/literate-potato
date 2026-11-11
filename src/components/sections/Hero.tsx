@@ -1,6 +1,6 @@
 import type { CSSProperties } from "react";
-import { artist, ep, photos } from "@/content/site";
-import { Lines } from "../Lines";
+import { artist, ep, featuredTrackId, photos } from "@/content/site";
+import { ListenButton } from "../audio/ListenButton";
 import { Plate } from "../Plate";
 import styles from "./Hero.module.css";
 
@@ -24,18 +24,25 @@ export function Hero() {
         </span>
       </div>
 
-      <h1 id="hero-name" className={`display ${styles.name}`}>
-        <Lines lines={["Craig", "Osae"]} delay={350} className={styles.nameLines} />
-      </h1>
+      {/* The wordmark is the name — stacked, large, in off-white. The h1 keeps
+          the plain text for search engines and screen readers. */}
+      <div className={styles.lockup}>
+        <h1 id="hero-name" className={styles.name}>
+          <span className="sr-only">{artist.name}</span>
+          <span className={styles.wordmark} aria-hidden data-reveal="rise" style={{ "--d": "300ms" } as CSSProperties} />
+        </h1>
+
+        {/* never gated behind a scroll reveal — this is the page's main action */}
+        <div className={styles.ctas}>
+          <ListenButton trackId={featuredTrackId} label={`Listen to ${ep.title}`} className={styles.listen} />
+          <a href="#music" className={styles.more}>
+            All platforms
+          </a>
+        </div>
+      </div>
 
       <div className={styles.caption} data-reveal="wipe" style={{ "--d": "1100ms" } as CSSProperties}>
         <p className={styles.statement}>{artist.statement}</p>
-        <a href="#music" className={styles.current}>
-          <span className="meta">Now</span>
-          <span>
-            {ep.title} <em>{ep.kind}</em>
-          </span>
-        </a>
       </div>
     </section>
   );

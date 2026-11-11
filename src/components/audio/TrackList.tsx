@@ -1,6 +1,6 @@
 "use client";
 
-import { artist, fullSongLink, type Track } from "@/content/site";
+import { fullSongLink, type Track } from "@/content/site";
 import { useAudio, useProgress } from "./AudioProvider";
 import { PauseIcon, PlayIcon } from "./icons";
 import styles from "./TrackList.module.css";
@@ -19,12 +19,12 @@ export function TrackList({ items, size = "md" }: { items: Track[]; size?: "md" 
         const active = engaged && current?.id === track.id;
         const playing = active && isPlaying;
         const full = fullSongLink(track);
+        // Only what's different about this song — Craig is implied.
         const credit = [
-          track.artist ?? artist.name,
+          track.artist ?? null,
           track.with ? `with ${track.with}` : null,
           track.featuring ? `feat. ${track.featuring}` : null,
-          // songs with a site preview say so; released songs show their year
-          track.audio ? (track.preview ? "30s preview" : track.year) : (track.year ?? "Audio soon"),
+          track.project ? null : track.year,
         ].filter(Boolean);
 
         return (
@@ -35,13 +35,13 @@ export function TrackList({ items, size = "md" }: { items: Track[]; size?: "md" 
 
             <span className={styles.body}>
               <span className={styles.title}>{track.title}</span>
-              <span className={`meta ${styles.credit}`}>
+              <span className={styles.credit}>
                 {credit.join("  ·  ")}
                 {full?.url && (
                   <>
-                    {"  ·  "}
+                    {credit.length ? "  ·  " : ""}
                     <a className={styles.full} href={full.url} target="_blank" rel="noopener noreferrer">
-                      {track.audio ? "Full song on" : "Listen on"} {full.label}
+                      Full song on {full.label}
                       <span className="sr-only"> (opens in a new tab)</span>
                     </a>
                   </>

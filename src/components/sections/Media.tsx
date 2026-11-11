@@ -13,10 +13,10 @@ export function Media() {
     <section id="media" className={`pattern ${styles.section}`} aria-labelledby="media-title">
       <div className={styles.label}>
         <p className="meta">
-          <span>05</span> Media
+          Live &amp; studio
         </p>
         <h2 id="media-title" className={`display ${styles.title}`} data-reveal="rise">
-          Plates
+          Gallery
         </h2>
       </div>
 
@@ -36,10 +36,11 @@ export function Media() {
               style={{ "--d": `${(i % 4) * 80}ms` } as CSSProperties}
             >
               <div className={styles.frame}>
-                <Plate media={m} label={`Plate ${String(i + 1).padStart(2, "0")}`} tone={TONES[k]} sizes={SIZES[k]} />
+                <Plate media={m} label={m.caption ?? "Photograph"} tone={TONES[k]} sizes={SIZES[k]} />
               </div>
               <figcaption className="meta">
-                <span>Pl. {String(i + 1).padStart(2, "0")}</span>
+                <span>{m.caption ?? "Craig Osae"}</span>
+                <span>{String(i + 1).padStart(2, "0")}</span>
                 {m.credit && <span>© {m.credit}</span>}
               </figcaption>
             </figure>

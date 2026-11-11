@@ -65,7 +65,7 @@ export function EventBill({ items }: { items: Performance[] }) {
               <span className={`meta ${styles.n}`}>{String(i + 1).padStart(2, "0")}</span>
               <span className={`display ${styles.name}`}>{p.name}</span>
               <span className={styles.side}>
-                <span className={`meta ${styles.year}`}>{p.year ?? "—"}</span>
+                {p.year && <span className={`meta ${styles.year}`}>{p.year}</span>}
                 {count > 0 && (
                   <span className={`meta ${styles.view}`}>
                     View photos · {count}

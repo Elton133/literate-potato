@@ -8,7 +8,7 @@ export function About() {
   return (
     <section id="about" className={`pattern ${styles.section}`} aria-labelledby="about-title">
       <p className={`meta ${styles.kicker}`}>
-        <span>03</span> About — {artist.name}
+        About — {artist.name}
       </p>
 
       <h2 id="about-title" className={`serif ${styles.quote}`}>

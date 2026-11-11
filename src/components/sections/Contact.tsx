@@ -8,7 +8,7 @@ export function Contact() {
     <section id="contact" className={`pattern ${styles.section}`} aria-labelledby="contact-title">
       <div className={styles.left}>
         <p className={`meta ${styles.kicker}`}>
-          <span>08</span> Contact — bookings, collaborations, press
+          Contact — bookings, collaborations, press
         </p>
         <h2 id="contact-title" className={`display ${styles.title}`}>
           <Lines lines={["Write", "to", "Craig."]} />

@@ -32,7 +32,7 @@ export function Record() {
   return (
     <section id="music" className={styles.section} aria-labelledby="record-title">
       <p className={`meta ${styles.kicker}`}>
-        <span>02</span> Music — The current record
+        Music — The current record
       </p>
 
       <div className={styles.spread}>
@@ -51,9 +51,6 @@ export function Record() {
             <Lines lines={["The", "Dialogue"]} />
             <span className="sr-only"> 1</span>
           </h2>
-          <span className={`display ${styles.numeral}`} aria-hidden data-reveal="rise" style={{ "--d": "300ms" } as CSSProperties}>
-            1
-          </span>
 
           <div className={styles.notes} data-reveal="fade" style={{ "--d": "200ms" } as CSSProperties}>
             <div className={styles.desc}>
@@ -79,7 +76,7 @@ export function Record() {
         <div className={styles.tracks} data-reveal="fade">
           <div className={styles.listHead}>
             <h3 className="meta">{hasTracklist ? `${ep.title} — Track list` : "Selected songs"}</h3>
-            {!hasTracklist && <p className="meta">Official EP tracklist to be announced</p>}
+            <p className="meta">30-second previews — full songs on streaming</p>
           </div>
           <TrackList items={list} />
 

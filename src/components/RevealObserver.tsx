@@ -19,7 +19,9 @@ export function RevealObserver() {
 
     const check = () => {
       frame = 0;
-      const limit = window.innerHeight * 0.9;
+      // anything whose top is on screen reveals (a 4% margin avoids
+      // triggering on a sliver at the very bottom edge)
+      const limit = window.innerHeight * 0.96;
       pending = pending.filter((el) => {
         const r = el.getBoundingClientRect();
         if (r.top < limit && r.bottom > 0) {

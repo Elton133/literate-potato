@@ -9,7 +9,7 @@ export function Stage() {
     <section id="stage" className={styles.section} aria-labelledby="stage-title">
       <header className={styles.head}>
         <p className="meta">
-          <span>06</span> Stage &amp; studio
+          Stage &amp; studio
         </p>
         <h2 id="stage-title" className={`display ${styles.title}`}>
           <Lines lines={["On", "stage"]} />
