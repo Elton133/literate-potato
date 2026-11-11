@@ -1,18 +1,28 @@
+/* ── The player: a floating glass panel ───────────────────────
+   The one deliberately soft object on an otherwise sharp site, so it
+   reads as an instrument laid over the page rather than part of it.
+   (globals.css forces radius 0 everywhere; !important here opts out.) */
 .dock {
   position: fixed;
   left: var(--gutter);
-  bottom: 0;
+  bottom: 16px;
   z-index: 60;
   display: grid;
   grid-template-columns: auto 1fr auto;
-  align-items: stretch;
+  align-items: center;
+  gap: 4px;
   width: min(560px, calc(100vw - 2 * var(--gutter)));
-  background: var(--black);
+  padding: 8px;
   color: var(--white);
-  border: 1px solid var(--paper-20);
-  border-bottom: 0;
-  border-top: 3px solid var(--coffee-lift);
-  transform: translateY(110%);
+  background: rgb(20 18 17 / 0.55);
+  -webkit-backdrop-filter: blur(22px) saturate(160%);
+  backdrop-filter: blur(22px) saturate(160%);
+  border: 1px solid rgb(255 255 255 / 0.14);
+  border-radius: 22px !important;
+  box-shadow:
+    0 12px 40px rgb(0 0 0 / 0.35),
+    inset 0 1px 0 rgb(255 255 255 / 0.1);
+  transform: translateY(calc(100% + 40px));
   transition: transform 800ms var(--ease);
 }
 .dock[data-open] {
@@ -21,36 +31,40 @@
 
 .controls {
   display: flex;
-  border-right: 1px solid var(--paper-20);
+  align-items: center;
+  gap: 2px;
 }
 
 .btn {
   display: grid;
   place-items: center;
-  width: 44px;
-  min-height: 64px;
+  width: 40px;
+  height: 40px;
   border: 0;
+  border-radius: 12px !important;
   background: transparent;
   color: inherit;
   transition: background-color 250ms, color 250ms;
 }
 .btn:hover {
-  background: var(--paper-20);
+  background: rgb(255 255 255 / 0.1);
 }
 
 .main {
-  width: 56px;
+  width: 48px;
+  height: 48px;
+  border-radius: 15px !important;
   background: var(--white);
   color: var(--black);
 }
 .main:hover {
-  background: var(--coffee);
+  background: var(--coffee-lift);
   color: var(--white);
 }
 
 .body {
   min-width: 0;
-  padding: 10px 16px 10px;
+  padding: 2px 10px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -75,14 +89,24 @@
 .by {
   font-size: 10px;
   color: var(--paper-60);
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
+/* "Preview" / "Full song" pill */
 .badge {
   flex: none;
+  margin-left: auto;
   font-size: 9px;
-  padding: 2px 6px;
-  border: 1px solid var(--coffee-lift);
-  color: var(--coffee-lift);
+  padding: 3px 8px;
+  border-radius: 999px !important;
+  background: rgb(255 255 255 / 0.1);
+  color: var(--white);
+  transition: background-color 250ms, color 250ms;
+}
+a.badge:hover {
+  background: var(--white);
+  color: var(--black);
 }
 
 .note {
@@ -108,42 +132,56 @@
   text-align: right;
 }
 
-/* Square-thumb range — no soft UI */
+/* Rounded track + round thumb, to match the glass */
 .seek {
   flex: 1;
   appearance: none;
   height: 14px;
-  background: linear-gradient(var(--white), var(--white)) 0 50% / var(--p, 0%) 2px no-repeat,
-    linear-gradient(var(--paper-20), var(--paper-20)) 0 50% / 100% 2px no-repeat;
+  background:
+    linear-gradient(var(--white), var(--white)) 0 50% / var(--p, 0%) 3px no-repeat,
+    linear-gradient(rgb(255 255 255 / 0.18), rgb(255 255 255 / 0.18)) 0 50% / 100% 3px no-repeat;
+  border-radius: 999px !important;
   cursor: pointer;
 }
 .seek::-webkit-slider-thumb {
   appearance: none;
-  width: 8px;
-  height: 14px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50% !important;
   background: var(--white);
   border: 0;
+  box-shadow: 0 1px 4px rgb(0 0 0 / 0.4);
 }
 .seek::-moz-range-thumb {
-  width: 8px;
-  height: 14px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50% !important;
   background: var(--white);
   border: 0;
-}
-
-.close {
-  border-left: 1px solid var(--paper-20);
 }
 
 @media (max-width: 759px) {
   .dock {
-    left: 0;
-    width: 100vw;
-    border-left: 0;
-    border-right: 0;
-    padding-bottom: env(safe-area-inset-bottom);
+    left: 10px;
+    width: calc(100vw - 20px);
+    bottom: calc(10px + env(safe-area-inset-bottom));
+    border-radius: 20px !important;
   }
   .controls .btn:not(.main) {
     display: none;
   }
+}
+
+/* Browsers without blur: a solid dark panel instead of see-through */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .dock {
+    background: rgb(20 18 17 / 0.94);
+  }
+}
+
+.close {
+  color: var(--paper-60);
+}
+.close:hover {
+  color: var(--white);
 }

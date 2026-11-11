@@ -17,8 +17,8 @@ export default function NotFound() {
         This page doesn’t exist — or it hasn’t been released yet.
       </p>
       <Link href="/" className={styles.back}>
-        <span>Da capo</span>
-        <span className="meta">Back to the start →</span>
+        <span>Home</span>
+        <span className="meta">Back to the start</span>
       </Link>
     </section>
   );

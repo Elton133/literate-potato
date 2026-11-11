@@ -200,7 +200,7 @@ export function AudioProvider({ children }: { children: ReactNode }) {
   // A line for whoever opens the console.
   useEffect(() => {
     console.log(
-      "%cCraig Osae%c  Afrogospel, from Ghana.\nIt starts with an encounter.  — craigosae.com",
+      "%cCraig Osae%c  Urban gospel, from Ghana.\nIt starts with an encounter.  — craigosae.com",
       "font: 800 14px system-ui; letter-spacing: -0.02em",
       "font: 12px system-ui; color: #A36552",
     );

@@ -22,7 +22,7 @@ export function Media() {
 
       <p className={`meta ${styles.swipe}`} aria-hidden>
         <span>{photos.gallery.length} photographs</span>
-        <span>Swipe →</span>
+        <span>Swipe</span>
       </p>
 
       <div className={styles.plates}>

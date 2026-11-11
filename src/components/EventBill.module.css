@@ -1,0 +1,233 @@
+/* ── The bill (moved from Stage.module.css) ─────────────────── */
+
+.bill {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 3px solid var(--black);
+}
+
+.act {
+  position: relative;
+  border-bottom: 1px solid var(--ink-20);
+  overflow: hidden;
+}
+
+.row {
+  position: relative;
+  display: grid;
+  grid-template-columns: 6vw 1fr auto;
+  align-items: baseline;
+  gap: 16px;
+  width: 100%;
+  padding: 10px 0 2px;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  text-align: left;
+  font: inherit;
+}
+button.row {
+  cursor: pointer;
+}
+
+/* ink floods the row on hover — only rows that open something */
+button.row::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--black);
+  transform: scaleY(0);
+  transform-origin: bottom;
+  transition: transform 550ms var(--ease);
+}
+.row > * {
+  position: relative;
+  transition: color 400ms var(--ease), transform 600ms var(--ease);
+}
+button.row:hover::before,
+button.row:focus-visible::before {
+  transform: scaleY(1);
+}
+button.row:hover > *,
+button.row:focus-visible > * {
+  color: var(--white);
+}
+button.row:hover .name {
+  transform: translateX(2vw);
+}
+
+.n {
+  color: var(--ink-60);
+}
+.name {
+  font-size: clamp(36px, 6vw, 112px);
+  line-height: 0.9;
+}
+.act:nth-child(even) .name {
+  padding-left: 8vw;
+}
+
+.side {
+  display: grid;
+  justify-items: end;
+  gap: 4px;
+  padding-right: 4px;
+}
+.year {
+  font-size: 13px;
+  font-weight: 700;
+}
+.view {
+  font-size: 10px;
+  color: var(--coffee);
+  border-bottom: 1px solid currentColor;
+  transition: color 300ms;
+}
+button.row:hover .view {
+  color: var(--coffee-lift);
+}
+
+/* ── Viewer ──────────────────────────────────────────────────── */
+
+.viewer {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100dvh;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: var(--black);
+  color: var(--white);
+}
+.viewer::backdrop {
+  background: var(--black);
+}
+.viewer[open] {
+  animation: viewerIn 500ms var(--ease);
+}
+@keyframes viewerIn {
+  from {
+    opacity: 0;
+  }
+}
+
+.frame {
+  height: 100%;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  gap: clamp(16px, 2vw, 28px);
+  padding: clamp(20px, 3vw, 40px) 0;
+}
+
+.top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 0 var(--gutter);
+}
+.top :global(.meta) {
+  color: var(--coffee-lift);
+  margin: 0 0 8px;
+}
+.vTitle {
+  margin: 0;
+  font-size: clamp(40px, 6vw, 104px);
+}
+.close {
+  padding: 10px 14px;
+  border: 0;
+  background: var(--white);
+  color: var(--black);
+  font-weight: 700;
+  transition: background-color 300ms, color 300ms;
+}
+.close:focus-visible {
+  outline: 2px solid var(--white);
+  outline-offset: 3px;
+}
+.close:hover {
+  background: var(--coffee);
+  color: var(--white);
+}
+
+/* Photos in a swipeable, snapping strip — the next one always peeks in */
+.strip {
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  gap: clamp(12px, 1.6vw, 24px);
+  overflow-x: auto;
+  overscroll-behavior: contain;
+  scroll-snap-type: x mandatory;
+  padding: 0 var(--gutter);
+  scrollbar-width: none;
+}
+.strip::-webkit-scrollbar {
+  display: none;
+}
+.slide {
+  flex: none;
+  height: 100%;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  scroll-snap-align: center;
+}
+.img {
+  display: block;
+  width: auto;
+  height: auto;
+  max-height: 100%;
+  max-width: min(78vw, 1100px);
+  object-fit: contain;
+}
+
+.bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 var(--gutter);
+  color: var(--paper-60);
+}
+.nav {
+  display: flex;
+  gap: 8px;
+}
+.nav button {
+  padding: 10px 14px;
+  border: 1px solid var(--paper-20);
+  background: transparent;
+  color: var(--white);
+  transition: background-color 300ms, color 300ms, opacity 300ms;
+}
+.nav button:hover:not(:disabled) {
+  background: var(--white);
+  color: var(--black);
+}
+.nav button:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+@media (max-width: 759px) {
+  .row {
+    grid-template-columns: 1fr auto;
+  }
+  .n {
+    display: none;
+  }
+  .name {
+    font-size: 9.4vw;
+  }
+  .act:nth-child(even) .name {
+    padding-left: 6vw;
+  }
+  .img {
+    max-width: 86vw;
+  }
+}

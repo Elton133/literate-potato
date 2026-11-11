@@ -48,7 +48,20 @@ export function PlayerDock() {
             {artist.name}
             {track.with ? ` & ${track.with}` : ""}
           </span>
-          {track.preview && <span className={`meta ${styles.badge}`}>Preview</span>}
+          {track.preview &&
+            (full?.url ? (
+              <a
+                className={`meta ${styles.badge}`}
+                href={full.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                title={`This is a 30-second preview — hear the full song on ${full.label}`}
+              >
+                Full song
+              </a>
+            ) : (
+              <span className={`meta ${styles.badge}`}>Preview</span>
+            ))}
         </p>
 
         {previewEnded ? (
@@ -56,10 +69,10 @@ export function PlayerDock() {
             That was a preview.{" "}
             {full?.url ? (
               <a href={full.url} target="_blank" rel="noopener noreferrer">
-                Hear the full song on {full.label} ↗
+                Hear the full song on {full.label}
               </a>
             ) : (
-              <a href="#music">Hear the full song ↗</a>
+              <a href="#music">Hear the full song</a>
             )}
           </p>
         ) : unavailable ? (
@@ -67,10 +80,10 @@ export function PlayerDock() {
             {status === "error" ? "Audio could not load. " : "No preview on this site. "}
             {full?.url ? (
               <a href={full.url} target="_blank" rel="noopener noreferrer">
-                Listen on {full.label} ↗
+                Listen on {full.label}
               </a>
             ) : (
-              <a href="#accounts">Find it on streaming ↗</a>
+              <a href="#accounts">Find it on streaming</a>
             )}
           </p>
         ) : (

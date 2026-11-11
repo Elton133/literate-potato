@@ -34,14 +34,7 @@
   padding: 14px 0 8px;
 }
 
-.arrow {
-  font-size: 1.1em;
-  transition: transform 500ms var(--ease);
-}
-.lg .arrow {
-  font-size: clamp(22px, 2.4vw, 36px);
-}
-
+.lg 
 /* coffee rule draws across on hover */
 a.row::after {
   content: "";
@@ -62,10 +55,7 @@ a.row:hover::after {
 a.row:hover .label {
   transform: translateX(8px);
 }
-a.row:hover .arrow {
-  transform: translate(4px, -4px);
-}
-
+a.row:hover 
 .pending {
   opacity: 0.42;
 }

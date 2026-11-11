@@ -29,9 +29,6 @@ export function Contact() {
           <span>
             {artist.genre} — {artist.country}
           </span>
-          <a href="#top" title="Da capo — from the top" aria-label="Back to top (da capo)">
-            Da capo ↑
-          </a>
         </div>
         {/* The wordmark is cropped by the bottom of the page */}
         <p className={`display ${styles.wordmark}`} aria-hidden>

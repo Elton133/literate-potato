@@ -55,9 +55,12 @@ export type LinkItem = {
 };
 
 export type Performance = {
+  id: string;
   name: string;
   /** Display year exactly as known. null when unconfirmed. */
   year: string | null;
+  /** Photos from the night — add files to /public/images/live/<id>/. */
+  photos: Media[];
 };
 
 /* ── Artist ─────────────────────────────────────────────────────────────── */
@@ -67,13 +70,13 @@ export const artist = {
   handle: "@craigosae",
   country: "Ghana",
   roles: ["Singer", "Songwriter", "Producer"],
-  genre: "Afrogospel",
+  genre: "Urban Gospel",
   /** Shown in the hero. */
   statement:
-    "Afrogospel from Ghana — contemporary African gospel, Afrobeats and the Methodist hymns that raised him, built on beats he makes himself.",
+    "Urban gospel from Ghana — contemporary African gospel, Afrobeats and the Methodist hymns that raised him, built on beats he makes himself.",
   /** Used for SEO description. */
   summary:
-    "Craig Osae is a Ghanaian Afrogospel artist, singer, songwriter and music producer blending contemporary African gospel, Afrobeats and traditional Methodist hymn influences.",
+    "Craig Osae is a Ghanaian urban gospel artist, singer, songwriter and music producer blending contemporary African gospel, Afrobeats and traditional Methodist hymn influences.",
   /** Production domain. NEXT_PUBLIC_SITE_URL can override it (e.g. for a staging URL). */
   siteUrl: process.env.NEXT_PUBLIC_SITE_URL ?? "https://craigosae.com",
 };
@@ -101,38 +104,47 @@ export const photos = {
     focus: "55% 30%",
     credit: null,
   } satisfies Media,
-  /** Media section plates, in reading order. Layout cycles every four. */
+  /**
+   * Media section plates, in reading order. Layout cycles every four:
+   * wide · small · tall · panoramic. Studio and live shots alternate so
+   * the section isn't one outfit, one backdrop.
+   */
   gallery: [
+    { src: "/images/live/carnival-of-stars/02.jpg", width: 1280, height: 853, alt: "Craig Osae performing in a red sweatshirt at Carnival of Stars", focus: "70% 40%" },
+    { src: "/images/craig-osae-stool-denim.jpg", width: 2400, height: 3600, alt: "Craig Osae seated on a stool in a black knit and jeans", focus: "50% 25%" },
+    { src: "/images/live/octagon-2025/02.jpg", width: 1170, height: 1465, alt: "Craig Osae singing on stage at OCTAGON Concert 2025", focus: "50% 40%" },
+    { src: "/images/live/supernatural-night/01.jpg", width: 1280, height: 989, alt: "Craig Osae singing at Supernatural Night", focus: "40% 35%" },
     { src: "/images/craig-osae-chair-03.jpg", width: 2706, height: 3600, alt: "Craig Osae seated on a wooden chair, hand to his chin", focus: "50% 38%" },
     { src: "/images/craig-osae-smile.jpg", width: 2505, height: 3600, alt: "Craig Osae smiling, holding his sunglasses", focus: "50% 30%" },
-    { src: "/images/craig-osae-full-length-02.jpg", width: 2793, height: 3600, alt: "Full-length portrait of Craig Osae standing", focus: "50% 45%" },
-    { src: "/images/craig-osae-chair-04.jpg", width: 2823, height: 3600, alt: "Craig Osae on a wooden chair, adjusting his sunglasses", focus: "50% 36%" },
-    { src: "/images/craig-osae-chair-01.jpg", width: 2855, height: 3600, alt: "Craig Osae leaning back in a wooden chair", focus: "45% 42%" },
-    { src: "/images/craig-osae-seated.jpg", width: 2492, height: 3600, alt: "Craig Osae seated, looking into the camera", focus: "50% 25%" },
-    { src: "/images/craig-osae-full-length-cap.jpg", width: 2617, height: 3600, alt: "Full-length portrait of Craig Osae holding a flat cap", focus: "50% 45%" },
-    { src: "/images/craig-osae-chair-02.jpg", width: 2714, height: 3600, alt: "Craig Osae seated, hand resting on his chin", focus: "50% 40%" },
+    { src: "/images/craig-osae-stool-bw.jpg", width: 2817, height: 3600, alt: "Black-and-white photograph of Craig Osae on a stool", focus: "50% 45%" },
+    { src: "/images/craig-osae-chair-denim.jpg", width: 2647, height: 3600, alt: "Craig Osae seated on a wooden chair in a black knit and jeans", focus: "50% 38%" },
   ] as Media[],
-  /* Unused so far: /images/craig-osae-full-length-01.jpg */
+  /*
+   * Also available, not currently shown: craig-osae-full-length-01/02,
+   * -full-length-cap, -chair-01/02/04, -seated.
+   */
 };
 
 /* ── Music ──────────────────────────────────────────────────────────────── */
 
+/*
+ * Every track plays a 30-second preview cut from the master in
+ * /media-source/audio (never served). Previews are ~360 KB and only
+ * download when someone presses play. Full songs → streaming links.
+ */
 export const tracks: Track[] = [
   /* The Dialogue 1 — order and credits from the official back cover */
-  { id: "on-my-knees", title: "On My Knees", audio: null, project: "the-dialogue-1", year: null },
-  { id: "no-one", title: "No One", audio: null, project: "the-dialogue-1", year: null },
-  { id: "interlude", title: "Interlude", artist: "Angel Ahiati", audio: null, project: "the-dialogue-1", year: null },
-  { id: "ill-be-there", title: "I’ll Be There", audio: null, project: "the-dialogue-1", year: null },
+  { id: "on-my-knees", title: "On My Knees", audio: "/audio/on-my-knees-preview.m4a", preview: true, project: "the-dialogue-1", year: null },
+  { id: "no-one", title: "No One", audio: "/audio/no-one-preview.m4a", preview: true, project: "the-dialogue-1", year: null },
+  { id: "interlude", title: "Interlude", artist: "Angel Ahiati", audio: "/audio/interlude-preview.m4a", preview: true, project: "the-dialogue-1", year: null },
+  { id: "ill-be-there", title: "I’ll Be There", audio: "/audio/ill-be-there-preview.m4a", preview: true, project: "the-dialogue-1", year: null },
 
   /* Singles */
   {
     id: "he-dey",
     title: "He Dey",
     with: "The CEO",
-    // 45-second excerpt (1:40–2:25) cut from the master in /media-source.
-    // The full song is never served by this site.
-    audio: "/audio/he-dey-preview.m4a",
-    preview: true,
+    audio: "/audio/he-dey-preview.m4a", preview: true,
     project: null,
     year: "2024",
     released: "2024-10-28",
@@ -152,21 +164,21 @@ export const tracks: Track[] = [
     id: "my-hiding-place",
     title: "My Hiding Place",
     featuring: "Kyei Mensah",
-    audio: null,
+    audio: "/audio/my-hiding-place-preview.m4a", preview: true,
     project: null,
     year: "2026",
     released: "2026-03-20",
     links: [{ label: "Apple Music", url: "https://music.apple.com/gb/song/my-hiding-place/1885841572" }],
   },
-  { id: "hene-jesu", title: "Hene Jesu", featuring: "Saint Kofi", audio: null, project: null, year: "2026" },
-  { id: "impossible", title: "Impossible", featuring: "Aloud City Urban", audio: null, project: null, year: "2026" },
-  { id: "no-delay", title: "No Delay", audio: null, project: null, year: "2026" },
-  { id: "good-days", title: "Good Days", audio: null, project: null, year: "2025" },
+  { id: "hene-jesu", title: "Hene Jesu", featuring: "Saint Kofi", audio: "/audio/hene-jesu-preview.m4a", preview: true, project: null, year: "2026" },
+  { id: "impossible", title: "Impossible", featuring: "Aloud City Urban", audio: "/audio/impossible-preview.m4a", preview: true, project: null, year: "2026" },
+  { id: "no-delay", title: "No Delay", audio: "/audio/no-delay-preview.m4a", preview: true, project: null, year: "2026" },
+  { id: "good-days", title: "Good Days", audio: "/audio/good-days-preview.m4a", preview: true, project: null, year: "2025" },
   {
     id: "oluwa",
     title: "Oluwa",
     featuring: "Eddan",
-    audio: null,
+    audio: "/audio/oluwa-preview.m4a", preview: true,
     project: null,
     year: "2024",
     released: "2024-07-01",
@@ -220,7 +232,7 @@ export const ep = {
     // Spotify artist page — the EP is his latest release there.
     { label: "Spotify", url: "https://open.spotify.com/artist/7s12YPNxfPIyLrA6SxvhGV" },
     { label: "YouTube", url: "https://www.youtube.com/@craigosae" },
-    { label: "Boomplay", url: null },
+    { label: "Boomplay", url: "https://www.boomplay.com/artists/EQJUbLDw8KRwR08Zrh-YlROD" },
   ] as LinkItem[],
 };
 
@@ -253,12 +265,51 @@ export const vision = {
 
 /* ── Stage & studio ─────────────────────────────────────────────────────── */
 
+/** Photo helper for the live sets: /images/live/<event>/<nn>.jpg */
+const live = (event: string, n: string, width: number, height: number, alt: string): Media => ({
+  src: `/images/live/${event}/${n}.jpg`,
+  width,
+  height,
+  alt,
+});
+
 export const performances: Performance[] = [
-  { name: "OCTAGON Concert", year: "2025" },
-  { name: "Carnival of Stars", year: null },
-  { name: "Koinonia Concert", year: null },
-  { name: "Supernatural Night", year: null },
-  { name: "Tehillah Kabash", year: "’26" },
+  {
+    id: "octagon-2025",
+    name: "OCTAGON Concert",
+    year: "2025",
+    photos: [
+      live("octagon-2025", "01", 1170, 1336, "Craig Osae singing under white stage lights at OCTAGON Concert 2025"),
+      live("octagon-2025", "02", 1170, 1465, "Craig Osae mid-song at OCTAGON Concert 2025"),
+    ],
+  },
+  {
+    id: "carnival-of-stars",
+    name: "Carnival of Stars",
+    year: null,
+    photos: [
+      live("carnival-of-stars", "01", 1280, 853, "Craig Osae performing with the band at Carnival of Stars"),
+      live("carnival-of-stars", "02", 1280, 853, "Craig Osae on stage at Carnival of Stars"),
+      live("carnival-of-stars", "03", 1280, 853, "Craig Osae singing at Carnival of Stars"),
+    ],
+  },
+  { id: "koinonia-concert", name: "Koinonia Concert", year: null, photos: [] },
+  {
+    id: "supernatural-night",
+    name: "Supernatural Night",
+    year: null,
+    photos: [
+      live("supernatural-night", "01", 1280, 989, "Craig Osae singing at Supernatural Night"),
+      live("supernatural-night", "02", 1280, 989, "Craig Osae performing at Supernatural Night"),
+      live("supernatural-night", "03", 1280, 989, "Craig Osae with the microphone at Supernatural Night"),
+    ],
+  },
+  {
+    id: "tehillah-kabash",
+    name: "Tehillah Kabash",
+    year: "’26",
+    photos: [live("tehillah-kabash", "01", 720, 1280, "The stage at Tehillah Kabash ’26")],
+  },
 ];
 
 export const collaborations: { name: string; note: string | null }[] = [
@@ -286,14 +337,20 @@ export const streaming: LinkItem[] = [
   { label: "Spotify", url: "https://open.spotify.com/artist/7s12YPNxfPIyLrA6SxvhGV" },
   { label: "Apple Music", url: "https://music.apple.com/gh/artist/craig-osae/1747588599" },
   { label: "Audiomack", url: "https://audiomack.com/craigosae" },
-  { label: "Boomplay", url: null },
+  { label: "Boomplay", url: "https://www.boomplay.com/artists/EQJUbLDw8KRwR08Zrh-YlROD" },
 ];
 
 /* ── Contact ────────────────────────────────────────────────────────────── */
 
 export const contact = {
-  /** Bookings inbox. While null the form hands off to Instagram DMs. */
+  /** Bookings inbox — the form opens an email to this address. */
   email: null as string | null,
+  /**
+   * Bookings number for WhatsApp, international format, digits only
+   * (e.g. "233241234567"). The form opens a WhatsApp chat with it.
+   * While both are null the form hands off to Instagram DMs.
+   */
+  whatsapp: null as string | null,
   enquiryTypes: ["Booking / performance", "Collaboration", "Press / media", "Other"],
 };
 
@@ -304,8 +361,12 @@ export const getTrack = (id: string) => tracks.find((t) => t.id === id) ?? null;
 export const trackLabel = (t: Track) =>
   t.featuring ? `${t.title} (feat. ${t.featuring})` : t.with ? `${t.title} (with ${t.with})` : t.title;
 
-/** First verified "full song" link for a track, if any. */
-export const fullSongLink = (t: Track) => t.links?.find((l) => l.url) ?? null;
+/**
+ * Where to hear the full song: the track's own verified link, else the
+ * artist's first streaming profile (Spotify), so a preview always leads on.
+ */
+export const fullSongLink = (t: Track): LinkItem | null =>
+  t.links?.find((l) => l.url) ?? streaming.find((l) => l.url) ?? null;
 
 /** Songs that aren't on the given project. */
 export const otherTracks = (projectId: string) => tracks.filter((t) => t.project !== projectId);

@@ -35,7 +35,6 @@ export function Hero() {
           <span>
             {ep.title} <em>{ep.kind}</em>
           </span>
-          <span aria-hidden>→</span>
         </a>
       </div>
     </section>

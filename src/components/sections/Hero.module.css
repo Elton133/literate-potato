@@ -76,7 +76,7 @@
 
 .current {
   display: grid;
-  grid-template-columns: auto 1fr auto;
+  grid-template-columns: auto 1fr;
   align-items: baseline;
   gap: 12px;
   padding: 14px 0 16px;

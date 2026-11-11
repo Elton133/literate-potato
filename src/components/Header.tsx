@@ -101,7 +101,7 @@ export function Header() {
           </li>
         ))}
       </ol>
-      <p className="meta">Afrogospel — Ghana — @craigosae</p>
+      <p className="meta">Urban Gospel — Ghana — @craigosae</p>
     </div>
 
     {/* Outside <header>: the header blends with the hero, the PLAY block never does */}

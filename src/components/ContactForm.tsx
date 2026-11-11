@@ -4,33 +4,54 @@ import { useState, type FormEvent } from "react";
 import { artist, contact, socials } from "@/content/site";
 import styles from "./sections/Contact.module.css";
 
+type Channel = "email" | "whatsapp";
+
 /**
- * Bookings form. With `contact.email` set it composes an email in the
- * visitor's mail app (no backend needed). Swap `send` for a form endpoint
- * (Formspree, a Server Action, etc.) when one exists.
+ * Bookings form — reaches Craig directly, no backend needed:
+ *  · "Send by email"    opens the visitor's mail app, addressed to `contact.email`
+ *  · "Send on WhatsApp" opens a chat with `contact.whatsapp`, message pre-written
+ * Each button appears once its value is set in src/content/site.ts.
  */
 export function ContactForm() {
   const [type, setType] = useState(contact.enquiryTypes[0]);
-  const [sent, setSent] = useState(false);
-  const ready = Boolean(contact.email);
+  const [sent, setSent] = useState<Channel | null>(null);
   const instagram = socials.find((s) => s.label === "Instagram")?.url ?? null;
+  const hasEmail = Boolean(contact.email);
+  const hasWhatsApp = Boolean(contact.whatsapp);
+  const ready = hasEmail || hasWhatsApp;
 
   function send(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    if (!contact.email) return;
+    const submitter = (e.nativeEvent as SubmitEvent).submitter as HTMLButtonElement | null;
+    const channel = (submitter?.value as Channel) || (hasWhatsApp ? "whatsapp" : "email");
+
     const f = new FormData(e.currentTarget);
-    const name = String(f.get("name") ?? "");
-    const lines = [
-      `Name: ${name}`,
-      `Email: ${f.get("email")}`,
-      `Enquiry: ${type}`,
-      f.get("when") ? `Date / location: ${f.get("when")}` : null,
-      "",
-      String(f.get("message") ?? ""),
-    ].filter((l) => l !== null);
+    const name = String(f.get("name") ?? "").trim();
+    const reach = String(f.get("reach") ?? "").trim();
+    const when = String(f.get("when") ?? "").trim();
+    const message = String(f.get("message") ?? "").trim();
     const subject = `${type} — ${name}`;
-    window.location.href = `mailto:${contact.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(lines.join("\n"))}`;
-    setSent(true);
+    const body = [
+      `Hello Craig,`,
+      ``,
+      message,
+      ``,
+      `— ${name}`,
+      `Enquiry: ${type}`,
+      when ? `Date / location: ${when}` : null,
+      `Reach me at: ${reach}`,
+      `(sent from craigosae.com)`,
+    ]
+      .filter((l) => l !== null)
+      .join("\n");
+
+    if (channel === "whatsapp" && contact.whatsapp) {
+      const url = `https://wa.me/${contact.whatsapp}?text=${encodeURIComponent(`*${subject}*\n\n${body}`)}`;
+      window.open(url, "_blank", "noopener,noreferrer");
+    } else if (contact.email) {
+      window.location.href = `mailto:${contact.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    }
+    setSent(channel);
   }
 
   return (
@@ -51,8 +72,8 @@ export function ContactForm() {
           <input name="name" required autoComplete="name" />
         </label>
         <label className={styles.field}>
-          <span className="meta">Email</span>
-          <input name="email" type="email" required autoComplete="email" />
+          <span className="meta">Your email or phone</span>
+          <input name="reach" required autoComplete="email" inputMode="email" />
         </label>
       </div>
 
@@ -67,26 +88,50 @@ export function ContactForm() {
       </label>
 
       <div className={styles.submitRow}>
-        <button type="submit" className={styles.submit} disabled={!ready}>
-          <span>Send enquiry</span>
-          <span aria-hidden>→</span>
-        </button>
+        {ready ? (
+          <span className={styles.actions}>
+            {hasEmail && (
+              <button type="submit" name="channel" value="email" className={styles.submit}>
+                Send by email
+              </button>
+            )}
+            {hasWhatsApp && (
+              <button
+                type="submit"
+                name="channel"
+                value="whatsapp"
+                className={`${styles.submit} ${hasEmail ? styles.secondary : ""}`}
+              >
+                Send on WhatsApp
+              </button>
+            )}
+          </span>
+        ) : (
+          <button type="submit" className={styles.submit} disabled>
+            Send enquiry
+          </button>
+        )}
+
         <p className="meta" role="status">
           {!ready ? (
             <>
               Bookings inbox opening soon — message{" "}
               {instagram ? (
                 <a href={instagram} target="_blank" rel="noopener noreferrer" className={styles.inline}>
-                  {artist.handle} on Instagram ↗
+                  {artist.handle} on Instagram
                 </a>
               ) : (
                 artist.handle
               )}{" "}
               in the meantime.
             </>
-          ) : sent
-              ? "Your mail app should now be open with the message ready."
-              : "Opens your mail app with everything filled in."}
+          ) : sent === "whatsapp" ? (
+            "WhatsApp should now be open with your message ready — just press send."
+          ) : sent === "email" ? (
+            "Your mail app should now be open with your message ready — just press send."
+          ) : (
+            "Your message opens ready to send — nothing is lost."
+          )}
         </p>
       </div>
     </form>

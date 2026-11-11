@@ -8,11 +8,12 @@ import { artist, ep, getTrack, photos, socials, streaming, tracks, type Track } 
 export const SEO = {
   title: `${artist.name} — Ghanaian ${artist.genre} Artist`,
   description:
-    "Ghanaian Afrogospel singer, songwriter and producer blending African gospel, Afrobeats and Methodist hymns. Hear The Dialogue 1 EP and He Dey.",
+    "Ghanaian urban gospel singer, songwriter and producer blending African gospel, Afrobeats and Methodist hymns. Hear The Dialogue 1 EP and He Dey.",
   keywords: [
     artist.name,
     "Craig Osae music",
-    "Afrogospel",
+    "urban gospel",
+    "Ghana urban gospel",
     "Ghana gospel",
     "Ghanaian gospel artist",
     "urban gospel Ghana",

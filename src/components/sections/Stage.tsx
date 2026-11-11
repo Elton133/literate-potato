@@ -1,5 +1,5 @@
-import type { CSSProperties } from "react";
 import { collaborations, performances } from "@/content/site";
+import { EventBill } from "../EventBill";
 import { Lines } from "../Lines";
 import styles from "./Stage.module.css";
 
@@ -19,20 +19,7 @@ export function Stage() {
         </p>
       </header>
 
-      <ol className={styles.bill}>
-        {performances.map((p, i) => (
-          <li
-            key={p.name}
-            className={styles.act}
-            data-reveal="wipe"
-            style={{ "--d": `${i * 90}ms` } as CSSProperties}
-          >
-            <span className={`meta ${styles.n}`}>{String(i + 1).padStart(2, "0")}</span>
-            <span className={`display ${styles.name}`}>{p.name}</span>
-            <span className={`meta ${styles.year}`}>{p.year ?? "—"}</span>
-          </li>
-        ))}
-      </ol>
+      <EventBill items={performances} />
 
       <div className={styles.collab} data-reveal="fade">
         <h3 className="meta">In the studio with</h3>

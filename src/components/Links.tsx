@@ -22,9 +22,6 @@ export function Links({
           {item.url ? (
             <a href={item.url} target="_blank" rel="noopener noreferrer" className={styles.row}>
               <span className={styles.label}>{item.label}</span>
-              <span className={styles.arrow} aria-hidden>
-                ↗
-              </span>
               <span className="sr-only">(opens in a new tab)</span>
             </a>
           ) : (
